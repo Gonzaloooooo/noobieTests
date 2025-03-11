@@ -545,7 +545,6 @@ namespace Tests
             std::vector<Move> w_moves = moveGen.generateMoves(b, Board::WHITE);
             std::vector<Move> b_moves = moveGen.generateMoves(b, Board::BLACK);
 
-            // Expected moves: All horizontal and vertical moves from d4
             std::vector<Move> expectedMoves = {
                 {27, 35, MoveGenerator::TOWER, MoveGenerator::NULL_TYPE}, // Upward
                 {27, 43, MoveGenerator::TOWER, MoveGenerator::NULL_TYPE}, 
@@ -639,14 +638,14 @@ namespace Tests
             std::vector<Move> b_moves = moveGen.generateMoves(b, Board::BLACK);
 
             std::vector<Move> expectedMoves = {
-                {27, 35, -1},  // Upward
-                {27, 19, -1}, // Downward
-                {27, 28, -1}, // Right
-                {27, 26, -1}, // Left
-                {27, 36, -1}, // Up - right
-                {27, 34, -1}, // Up - left
-                {27, 18, -1}, // Down - right
-                {27, 20, -1}, // Down - left
+                {27, 35, MoveGenerator::KING, MoveGenerator::NULL_TYPE}, // Upward
+                {27, 19, MoveGenerator::KING, MoveGenerator::NULL_TYPE}, // Downward
+                {27, 28, MoveGenerator::KING, MoveGenerator::NULL_TYPE}, // Right
+                {27, 26, MoveGenerator::KING, MoveGenerator::NULL_TYPE}, // Left
+                {27, 36, MoveGenerator::KING, MoveGenerator::NULL_TYPE}, // Up - right
+                {27, 34, MoveGenerator::KING, MoveGenerator::NULL_TYPE}, // Up - left
+                {27, 18, MoveGenerator::KING, MoveGenerator::NULL_TYPE}, // Down - right
+                {27, 20, MoveGenerator::KING, MoveGenerator::NULL_TYPE}, // Down - left
             };
 
             Assert::AreEqual(expectedMoves.size(), w_moves.size());
@@ -674,11 +673,11 @@ namespace Tests
             std::vector<Move> b_moves = moveGen.generateMoves(b, Board::BLACK);
 
             std::vector<Move> expectedMoves = {
-                {59, 51, -1}, // Downward
-                {59, 60, -1}, // Right
-                {59, 58, -1}, // Left
-                {59, 52, -1}, // Down - right
-                {59, 50, -1}, // Down - left
+                {59, 51, MoveGenerator::KING, MoveGenerator::NULL_TYPE}, // Downward
+                {59, 60, MoveGenerator::KING, MoveGenerator::NULL_TYPE}, // Right
+                {59, 58, MoveGenerator::KING, MoveGenerator::NULL_TYPE}, // Left
+                {59, 52, MoveGenerator::KING, MoveGenerator::NULL_TYPE}, // Down - right
+                {59, 50, MoveGenerator::KING, MoveGenerator::NULL_TYPE}, // Down - left
             };
 
             Assert::AreEqual(expectedMoves.size(), w_moves.size());
@@ -706,11 +705,11 @@ namespace Tests
             std::vector<Move> b_moves = moveGen.generateMoves(b, Board::BLACK);
 
             std::vector<Move> expectedMoves = {
-                {3, 11, -1}, // Upward
-                {3, 4, -1}, // Right
-                {3, 2, -1}, // Left
-                {3, 12, -1}, // Up - right
-                {3, 10, -1}, // Up - left
+                {3, 11, MoveGenerator::KING, MoveGenerator::NULL_TYPE}, // Upward
+                {3, 4,  MoveGenerator::KING, MoveGenerator::NULL_TYPE}, // Right
+                {3, 2,  MoveGenerator::KING, MoveGenerator::NULL_TYPE}, // Left
+                {3, 12, MoveGenerator::KING, MoveGenerator::NULL_TYPE}, // Up - right
+                {3, 10, MoveGenerator::KING, MoveGenerator::NULL_TYPE}, // Up - left
             };
 
             Assert::AreEqual(expectedMoves.size(), w_moves.size());
@@ -738,11 +737,11 @@ namespace Tests
             std::vector<Move> b_moves = moveGen.generateMoves(b, Board::BLACK);
 
             std::vector<Move> expectedMoves = {
-                {31, 39, -1}, // Upward
-                {31, 23, -1}, // Downward
-                {31, 30, -1}, // Left
-                {31, 38, -1}, // Up - left
-                {31, 22, -1}, // Down - left
+                {31, 39, MoveGenerator::KING, MoveGenerator::NULL_TYPE}, // Upward
+                {31, 23, MoveGenerator::KING, MoveGenerator::NULL_TYPE}, // Downward
+                {31, 30, MoveGenerator::KING, MoveGenerator::NULL_TYPE}, // Left
+                {31, 38, MoveGenerator::KING, MoveGenerator::NULL_TYPE}, // Up - left
+                {31, 22, MoveGenerator::KING, MoveGenerator::NULL_TYPE}, // Down - left
             };
 
             Assert::AreEqual(expectedMoves.size(), w_moves.size());
@@ -770,11 +769,11 @@ namespace Tests
             std::vector<Move> b_moves = moveGen.generateMoves(b, Board::BLACK);
 
             std::vector<Move> expectedMoves = {
-                {24, 32, -1}, // Upward
-                {24, 16, -1}, // Downward
-                {24, 25, -1}, // Right
-                {24, 33, -1}, // Up - right
-                {24, 17, -1}, // Down - right
+                {24, 32, MoveGenerator::KING, MoveGenerator::NULL_TYPE}, // Upward
+                {24, 16, MoveGenerator::KING, MoveGenerator::NULL_TYPE}, // Downward
+                {24, 25, MoveGenerator::KING, MoveGenerator::NULL_TYPE}, // Right
+                {24, 33, MoveGenerator::KING, MoveGenerator::NULL_TYPE}, // Up - right
+                {24, 17, MoveGenerator::KING, MoveGenerator::NULL_TYPE}, // Down - right
             };
 
             Assert::AreEqual(expectedMoves.size(), w_moves.size());
