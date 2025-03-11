@@ -543,33 +543,33 @@ namespace Tests
             std::vector<Move> b_moves = moveGen.generateMoves(b, Board::BLACK);
 
             std::vector<Move> expectedMoves = {
-                {27, 35, -1},  // Upward
-                {27, 43, -1},
-                {27, 51, -1},
-                {27, 59, -1},
-                {27, 19, -1}, // Downward
-                {27, 11, -1},
-                {27, 3, -1},
-                {27, 28, -1}, // Right
-                {27, 29, -1},
-                {27, 30, -1},
-                {27, 31, -1},
-                {27, 26, -1}, // Left
-                {27, 25, -1},
-                {27, 24, -1},
-                {27, 36, -1}, // Up - right
-                {27, 45, -1},
-                {27, 54, -1},
-                {27, 63, -1},
-                {27, 34, -1}, // Up - left
-                {27, 41, -1},
-                {27, 48, -1},
-                {27, 18, -1}, // Down - right
-                {27, 9, -1},
-                {27, 0, -1},
-                {27, 20, -1}, // Down - left
-                {27, 13, -1},
-                {27, 6, -1},
+                {27, 35, MoveGenerator::QUEEN, MoveGenerator::NULL_TYPE}, // Upward
+                {27, 43, MoveGenerator::QUEEN, MoveGenerator::NULL_TYPE},
+                {27, 51, MoveGenerator::QUEEN, MoveGenerator::NULL_TYPE},
+                {27, 59, MoveGenerator::QUEEN, MoveGenerator::NULL_TYPE},
+                {27, 19, MoveGenerator::QUEEN, MoveGenerator::NULL_TYPE}, // Downward
+                {27, 11, MoveGenerator::QUEEN, MoveGenerator::NULL_TYPE},
+                {27, 3,  MoveGenerator::QUEEN, MoveGenerator::NULL_TYPE},
+                {27, 28, MoveGenerator::QUEEN, MoveGenerator::NULL_TYPE}, // Right
+                {27, 29, MoveGenerator::QUEEN, MoveGenerator::NULL_TYPE},
+                {27, 30, MoveGenerator::QUEEN, MoveGenerator::NULL_TYPE},
+                {27, 31, MoveGenerator::QUEEN, MoveGenerator::NULL_TYPE},
+                {27, 26, MoveGenerator::QUEEN, MoveGenerator::NULL_TYPE}, // Left
+                {27, 25, MoveGenerator::QUEEN, MoveGenerator::NULL_TYPE},
+                {27, 24, MoveGenerator::QUEEN, MoveGenerator::NULL_TYPE},
+                {27, 36, MoveGenerator::QUEEN, MoveGenerator::NULL_TYPE}, // Up - right
+                {27, 45, MoveGenerator::QUEEN, MoveGenerator::NULL_TYPE},
+                {27, 54, MoveGenerator::QUEEN, MoveGenerator::NULL_TYPE},
+                {27, 63, MoveGenerator::QUEEN, MoveGenerator::NULL_TYPE},
+                {27, 34, MoveGenerator::QUEEN, MoveGenerator::NULL_TYPE}, // Up - left
+                {27, 41, MoveGenerator::QUEEN, MoveGenerator::NULL_TYPE},
+                {27, 48, MoveGenerator::QUEEN, MoveGenerator::NULL_TYPE},
+                {27, 18, MoveGenerator::QUEEN, MoveGenerator::NULL_TYPE}, // Down - right
+                {27, 9,  MoveGenerator::QUEEN, MoveGenerator::NULL_TYPE},
+                {27, 0,  MoveGenerator::QUEEN, MoveGenerator::NULL_TYPE},
+                {27, 20, MoveGenerator::QUEEN, MoveGenerator::NULL_TYPE}, // Down - left
+                {27, 13, MoveGenerator::QUEEN, MoveGenerator::NULL_TYPE},
+                {27, 6,  MoveGenerator::QUEEN, MoveGenerator::NULL_TYPE},
                 
             };
 
