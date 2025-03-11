@@ -547,22 +547,29 @@ namespace Tests
 
             // Expected moves: All horizontal and vertical moves from d4
             std::vector<Move> expectedMoves = {
-                {27, 35, -1}, {27, 43, -1}, {27, 51, -1}, {27, 59, -1},  // Upward
-                {27, 19, -1}, {27, 11, -1}, {27, 3, -1},  // Downward
-                {27, 28, -1}, {27, 29, -1}, {27, 30, -1}, {27, 31, -1},   // Right
-                {27, 26, -1}, {27, 25, -1}, {27, 24, -1},  // Left
+                {27, 35, MoveGenerator::TOWER, MoveGenerator::NULL_TYPE}, // Upward
+                {27, 43, MoveGenerator::TOWER, MoveGenerator::NULL_TYPE}, 
+                {27, 51, MoveGenerator::TOWER, MoveGenerator::NULL_TYPE},
+                {27, 59, MoveGenerator::TOWER, MoveGenerator::NULL_TYPE},
+                {27, 19, MoveGenerator::TOWER, MoveGenerator::NULL_TYPE}, // Downward
+                {27, 11, MoveGenerator::TOWER, MoveGenerator::NULL_TYPE},
+                {27, 3,  MoveGenerator::TOWER, MoveGenerator::NULL_TYPE},
+                {27, 28, MoveGenerator::TOWER, MoveGenerator::NULL_TYPE}, // Right 
+                {27, 29, MoveGenerator::TOWER, MoveGenerator::NULL_TYPE},
+                {27, 30, MoveGenerator::TOWER, MoveGenerator::NULL_TYPE},
+                {27, 31, MoveGenerator::TOWER, MoveGenerator::NULL_TYPE},
+                {27, 26, MoveGenerator::TOWER, MoveGenerator::NULL_TYPE}, // Left
+                {27, 25, MoveGenerator::TOWER, MoveGenerator::NULL_TYPE},
+                {27, 24, MoveGenerator::TOWER, MoveGenerator::NULL_TYPE},
             };
 
-            // Check if the generated moves match expected moves
             Assert::AreEqual(expectedMoves.size(), w_moves.size());
-
             for (const auto& expectedMove : expectedMoves) {
                 bool found = std::find(w_moves.begin(), w_moves.end(), expectedMove) != w_moves.end();
                 Assert::IsTrue(found, L"Expected move not found");
             }
 
             Assert::AreEqual(expectedMoves.size(), b_moves.size());
-
             for (const auto& expectedMove : expectedMoves) {
                 bool found = std::find(b_moves.begin(), b_moves.end(), expectedMove) != b_moves.end();
                 Assert::IsTrue(found, L"Expected move not found");
