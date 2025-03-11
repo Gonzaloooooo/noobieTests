@@ -398,22 +398,29 @@ namespace Tests
 
             std::vector<Move> w_moves = moveGen.generateMoves(b, WHITE);
             std::vector<Move> b_moves = moveGen.generateMoves(b, BLACK);
-            /*
-            std::cout << "BLANCAS" << std::endl;
-            for (int i = 0; i < w_moves.size(); i++) {
-                Move m = w_moves.at(i);
-                std::string cadena = "From: " + std::to_string(m.from) + " | To: " + std::to_string(m.to);
-                std::cout << cadena << std::endl;
+
+            std::vector<Move> expectedMoves = {
+                {27, 44, MoveGenerator::KNIGHT, MoveGenerator::NULL_TYPE},
+                {27, 37, MoveGenerator::KNIGHT, MoveGenerator::NULL_TYPE},
+                {27, 42, MoveGenerator::KNIGHT, MoveGenerator::NULL_TYPE},
+                {27, 33, MoveGenerator::KNIGHT, MoveGenerator::NULL_TYPE},
+                {27, 17, MoveGenerator::KNIGHT, MoveGenerator::NULL_TYPE},
+                {27, 10, MoveGenerator::KNIGHT, MoveGenerator::NULL_TYPE},
+                {27, 21, MoveGenerator::KNIGHT, MoveGenerator::NULL_TYPE},
+                {27, 12, MoveGenerator::KNIGHT, MoveGenerator::NULL_TYPE},
+            };
+
+            Assert::AreEqual(expectedMoves.size(), w_moves.size());
+            for (const auto& expectedMove : expectedMoves) {
+                bool found = std::find(w_moves.begin(), w_moves.end(), expectedMove) != w_moves.end();
+                Assert::IsTrue(found, L"Expected move not found");
             }
-            std::cout << "NEGRAS" << std::endl;
-            for (int i = 0; i < b_moves.size(); i++) {
-                Move m = b_moves.at(i);
-                std::string cadena = "From: " + std::to_string(m.from) + " | To: " + std::to_string(m.to);
-                std::cout << cadena << std::endl;
+
+            Assert::AreEqual(expectedMoves.size(), b_moves.size());
+            for (const auto& expectedMove : expectedMoves) {
+                bool found = std::find(b_moves.begin(), b_moves.end(), expectedMove) != b_moves.end();
+                Assert::IsTrue(found, L"Expected move not found");
             }
-            */
-            Assert::AreEqual(8, (int)w_moves.size());
-            Assert::AreEqual(8, (int)b_moves.size());
         }
         TEST_METHOD(TestGenerateKnightMovesLeftBottomCornerBounds) 
         {
@@ -426,22 +433,23 @@ namespace Tests
 
             std::vector<Move> w_moves = moveGen.generateMoves(b, Board::WHITE);
             std::vector<Move> b_moves = moveGen.generateMoves(b, Board::BLACK);
-            /*
-            std::cout << "BLANCAS" << std::endl;
-            for (int i = 0; i < w_moves.size(); i++) {
-                Move m = w_moves.at(i);
-                std::string cadena = "From: " + std::to_string(m.from) + " | To: " + std::to_string(m.to);
-                std::cout << cadena << std::endl;
+
+            std::vector<Move> expectedMoves = {
+                {0, 10, MoveGenerator::KNIGHT, MoveGenerator::NULL_TYPE},
+                {0, 17, MoveGenerator::KNIGHT, MoveGenerator::NULL_TYPE},
+            };
+
+            Assert::AreEqual(expectedMoves.size(), w_moves.size());
+            for (const auto& expectedMove : expectedMoves) {
+                bool found = std::find(w_moves.begin(), w_moves.end(), expectedMove) != w_moves.end();
+                Assert::IsTrue(found, L"Expected move not found");
             }
-            std::cout << "NEGRAS" << std::endl;
-            for (int i = 0; i < b_moves.size(); i++) {
-                Move m = b_moves.at(i);
-                std::string cadena = "From: " + std::to_string(m.from) + " | To: " + std::to_string(m.to);
-                std::cout << cadena << std::endl;
+
+            Assert::AreEqual(expectedMoves.size(), b_moves.size());
+            for (const auto& expectedMove : expectedMoves) {
+                bool found = std::find(b_moves.begin(), b_moves.end(), expectedMove) != b_moves.end();
+                Assert::IsTrue(found, L"Expected move not found");
             }
-            */
-            Assert::AreEqual(2, (int)w_moves.size());
-            Assert::AreEqual(2, (int)b_moves.size());
         }
         TEST_METHOD(TestGenerateKnightMovesRigthBottomCornerBounds)
         {
@@ -454,22 +462,23 @@ namespace Tests
 
             std::vector<Move> w_moves = moveGen.generateMoves(b, Board::WHITE);
             std::vector<Move> b_moves = moveGen.generateMoves(b, Board::BLACK);
-            /*
-            std::cout << "BLANCAS" << std::endl;
-            for (int i = 0; i < w_moves.size(); i++) {
-                Move m = w_moves.at(i);
-                std::string cadena = "From: " + std::to_string(m.from) + " | To: " + std::to_string(m.to);
-                std::cout << cadena << std::endl;
+            
+            std::vector<Move> expectedMoves = {
+                {7, 22, MoveGenerator::KNIGHT, MoveGenerator::NULL_TYPE},
+                {7, 13, MoveGenerator::KNIGHT, MoveGenerator::NULL_TYPE},
+            };
+
+            Assert::AreEqual(expectedMoves.size(), w_moves.size());
+            for (const auto& expectedMove : expectedMoves) {
+                bool found = std::find(w_moves.begin(), w_moves.end(), expectedMove) != w_moves.end();
+                Assert::IsTrue(found, L"Expected move not found");
             }
-            std::cout << "NEGRAS" << std::endl;
-            for (int i = 0; i < b_moves.size(); i++) {
-                Move m = b_moves.at(i);
-                std::string cadena = "From: " + std::to_string(m.from) + " | To: " + std::to_string(m.to);
-                std::cout << cadena << std::endl;
+
+            Assert::AreEqual(expectedMoves.size(), b_moves.size());
+            for (const auto& expectedMove : expectedMoves) {
+                bool found = std::find(b_moves.begin(), b_moves.end(), expectedMove) != b_moves.end();
+                Assert::IsTrue(found, L"Expected move not found");
             }
-            */
-            Assert::AreEqual(2, (int)w_moves.size());
-            Assert::AreEqual(2, (int)b_moves.size());
         }
         TEST_METHOD(TestGenerateKnightMovesRightTopCornerBounds) 
         {
@@ -481,22 +490,23 @@ namespace Tests
 
             std::vector<Move> w_moves = moveGen.generateMoves(b, Board::WHITE);
             std::vector<Move> b_moves = moveGen.generateMoves(b, Board::BLACK);
-            /*
-            std::cout << "BLANCAS" << std::endl;
-            for (int i = 0; i < w_moves.size(); i++) {
-                Move m = w_moves.at(i);
-                std::string cadena = "From: " + std::to_string(m.from) + " | To: " + std::to_string(m.to);
-                std::cout << cadena << std::endl;
+            
+            std::vector<Move> expectedMoves = {
+                {63, 46, MoveGenerator::KNIGHT, MoveGenerator::NULL_TYPE},
+                {63, 53, MoveGenerator::KNIGHT, MoveGenerator::NULL_TYPE},
+            };
+
+            Assert::AreEqual(expectedMoves.size(), w_moves.size());
+            for (const auto& expectedMove : expectedMoves) {
+                bool found = std::find(w_moves.begin(), w_moves.end(), expectedMove) != w_moves.end();
+                Assert::IsTrue(found, L"Expected move not found");
             }
-            std::cout << "NEGRAS" << std::endl;
-            for (int i = 0; i < b_moves.size(); i++) {
-                Move m = b_moves.at(i);
-                std::string cadena = "From: " + std::to_string(m.from) + " | To: " + std::to_string(m.to);
-                std::cout << cadena << std::endl;
+
+            Assert::AreEqual(expectedMoves.size(), b_moves.size());
+            for (const auto& expectedMove : expectedMoves) {
+                bool found = std::find(b_moves.begin(), b_moves.end(), expectedMove) != b_moves.end();
+                Assert::IsTrue(found, L"Expected move not found");
             }
-            */
-            Assert::AreEqual(2, (int)w_moves.size());
-            Assert::AreEqual(2, (int)b_moves.size());
         }
         TEST_METHOD(TestGenerateKnightMovesLeftTopCornerBounds) 
         {
@@ -508,22 +518,23 @@ namespace Tests
 
             std::vector<Move> w_moves = moveGen.generateMoves(b, Board::WHITE);
             std::vector<Move> b_moves = moveGen.generateMoves(b, Board::BLACK);
-            /*
-            std::cout << "BLANCAS" << std::endl;
-            for (int i = 0; i < w_moves.size(); i++) {
-                Move m = w_moves.at(i);
-                std::string cadena = "From: " + std::to_string(m.from) + " | To: " + std::to_string(m.to);
-                std::cout << cadena << std::endl;
+            
+            std::vector<Move> expectedMoves = {
+                {56, 50, MoveGenerator::KNIGHT, MoveGenerator::NULL_TYPE},
+                {56, 41, MoveGenerator::KNIGHT, MoveGenerator::NULL_TYPE},
+            };
+
+            Assert::AreEqual(expectedMoves.size(), w_moves.size());
+            for (const auto& expectedMove : expectedMoves) {
+                bool found = std::find(w_moves.begin(), w_moves.end(), expectedMove) != w_moves.end();
+                Assert::IsTrue(found, L"Expected move not found");
             }
-            std::cout << "NEGRAS" << std::endl;
-            for (int i = 0; i < b_moves.size(); i++) {
-                Move m = b_moves.at(i);
-                std::string cadena = "From: " + std::to_string(m.from) + " | To: " + std::to_string(m.to);
-                std::cout << cadena << std::endl;
+
+            Assert::AreEqual(expectedMoves.size(), b_moves.size());
+            for (const auto& expectedMove : expectedMoves) {
+                bool found = std::find(b_moves.begin(), b_moves.end(), expectedMove) != b_moves.end();
+                Assert::IsTrue(found, L"Expected move not found");
             }
-            */
-            Assert::AreEqual(2, (int)w_moves.size());
-            Assert::AreEqual(2, (int)b_moves.size());
         }
         TEST_METHOD(TestGenerateTowerMoves) {
             MoveGenerator moveGen;
