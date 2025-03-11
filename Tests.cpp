@@ -160,20 +160,32 @@ namespace Tests
 
             std::vector<Move> w_moves = moveGen.generateMoves(b, WHITE);
             std::vector<Move> b_moves = moveGen.generateMoves(b, BLACK);
-            /*
-            for (int i = 0; i < w_moves.size(); i++) {
-                Move m = w_moves.at(i);
-                std::string cadena = "From: " + std::to_string(m.from) + " | To: " + std::to_string(m.to);
-                std::cout << cadena << std::endl;
+
+            std::vector<Move> expectedWhiteMoves = {
+                {11, 19, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},
+                {11, 27, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},                                
+                {11, 20, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},
+                {11, 18, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},
+            };
+
+            std::vector<Move> expectedBlackMoves = {
+                {51, 43, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},
+                {51, 35, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},
+                {51, 42, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},
+                {51, 44, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},
+            };
+
+            Assert::AreEqual(expectedWhiteMoves.size(), w_moves.size());
+            for (const auto& expectedMove : expectedWhiteMoves) {
+                bool found = std::find(w_moves.begin(), w_moves.end(), expectedMove) != w_moves.end();
+                Assert::IsTrue(found, L"Expected move not found");
             }
-            for (int i = 0; i < b_moves.size(); i++) {
-                Move m = b_moves.at(i);
-                std::string cadena = "From: " + std::to_string(m.from) + " | To: " + std::to_string(m.to);
-                std::cout << cadena << std::endl;
+
+            Assert::AreEqual(expectedBlackMoves.size(), b_moves.size());
+            for (const auto& expectedMove : expectedBlackMoves) {
+                bool found = std::find(b_moves.begin(), b_moves.end(), expectedMove) != b_moves.end();
+                Assert::IsTrue(found, L"Expected move not found");
             }
-            */
-            Assert::AreEqual(4, (int)w_moves.size());
-            Assert::AreEqual(4, (int)b_moves.size());
         }
         TEST_METHOD(TestGeneratePawnMovesRightBounds) 
         {
@@ -187,21 +199,30 @@ namespace Tests
 
             std::vector<Move> w_moves = moveGen.generateMoves(b, WHITE);
             std::vector<Move> b_moves = moveGen.generateMoves(b, BLACK);
-            /*
-            for (int i = 0; i < w_moves.size(); i++) {
-                Move m = w_moves.at(i);
-                std::string cadena = "From: " + std::to_string(m.from) + " | To: " + std::to_string(m.to);
-                std::cout << cadena << std::endl;
-            }
             
-            for (int i = 0; i < b_moves.size(); i++) {
-                Move m = b_moves.at(i);
-                std::string cadena = "From: " + std::to_string(m.from) + " | To: " + std::to_string(m.to);
-                std::cout << cadena << std::endl;
+            std::vector<Move> expectedWhiteMoves = {
+                {15, 23, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},
+                {15, 31, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},
+                {15, 22, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},
+            };
+
+            std::vector<Move> expectedBlackMoves = {
+                {55, 47, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},
+                {55, 39, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},
+                {55, 46, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},
+            };
+
+            Assert::AreEqual(expectedWhiteMoves.size(), w_moves.size());
+            for (const auto& expectedMove : expectedWhiteMoves) {
+                bool found = std::find(w_moves.begin(), w_moves.end(), expectedMove) != w_moves.end();
+                Assert::IsTrue(found, L"Expected move not found");
             }
-            */
-            Assert::AreEqual(3, (int)w_moves.size());
-            Assert::AreEqual(3, (int)b_moves.size());
+
+            Assert::AreEqual(expectedBlackMoves.size(), b_moves.size());
+            for (const auto& expectedMove : expectedBlackMoves) {
+                bool found = std::find(b_moves.begin(), b_moves.end(), expectedMove) != b_moves.end();
+                Assert::IsTrue(found, L"Expected move not found");
+            }
         }
         TEST_METHOD(TestGeneratePawnMovesLeftBounds) 
         {
@@ -215,20 +236,30 @@ namespace Tests
 
             std::vector<Move> w_moves = moveGen.generateMoves(b, WHITE);
             std::vector<Move> b_moves = moveGen.generateMoves(b, BLACK);
-            /*
-            for (int i = 0; i < w_moves.size(); i++) {
-                Move m = w_moves.at(i);
-                std::string cadena = "From: " + std::to_string(m.from) + " | To: " + std::to_string(m.to);
-                std::cout << cadena << std::endl;
+            
+            std::vector<Move> expectedWhiteMoves = {
+                {8, 16, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},
+                {8, 24, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},
+                {8, 17, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},
+            };
+
+            std::vector<Move> expectedBlackMoves = {
+                {48, 40, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},
+                {48, 32, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},
+                {48, 41, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},
+            };
+
+            Assert::AreEqual(expectedWhiteMoves.size(), w_moves.size());
+            for (const auto& expectedMove : expectedWhiteMoves) {
+                bool found = std::find(w_moves.begin(), w_moves.end(), expectedMove) != w_moves.end();
+                Assert::IsTrue(found, L"Expected move not found");
             }
-            for (int i = 0; i < b_moves.size(); i++) {
-                Move m = b_moves.at(i);
-                std::string cadena = "From: " + std::to_string(m.from) + " | To: " + std::to_string(m.to);
-                std::cout << cadena << std::endl;
+
+            Assert::AreEqual(expectedBlackMoves.size(), b_moves.size());
+            for (const auto& expectedMove : expectedBlackMoves) {
+                bool found = std::find(b_moves.begin(), b_moves.end(), expectedMove) != b_moves.end();
+                Assert::IsTrue(found, L"Expected move not found");
             }
-            */
-            Assert::AreEqual(3, (int)w_moves.size());
-            Assert::AreEqual(3, (int)b_moves.size());
         }
         TEST_METHOD(TestGeneratePawnMovesStartingPos) 
         {
@@ -242,20 +273,30 @@ namespace Tests
 
             std::vector<Move> w_moves = moveGen.generateMoves(b, WHITE);
             std::vector<Move> b_moves = moveGen.generateMoves(b, BLACK);
-            /*
-            for (int i = 0; i < w_moves.size(); i++) {
-                Move m = w_moves.at(i);
-                std::string cadena = "From: " + std::to_string(m.from) + " | To: " + std::to_string(m.to);
-                std::cout << cadena << std::endl;
+            
+            std::vector<Move> expectedWhiteMoves = {
+                {18, 26, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},
+                {18, 25, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},
+                {18, 27, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},
+            };
+
+            std::vector<Move> expectedBlackMoves = {
+                {42, 34, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},
+                {42, 33, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},
+                {42, 35, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},
+            };
+
+            Assert::AreEqual(expectedWhiteMoves.size(), w_moves.size());
+            for (const auto& expectedMove : expectedWhiteMoves) {
+                bool found = std::find(w_moves.begin(), w_moves.end(), expectedMove) != w_moves.end();
+                Assert::IsTrue(found, L"Expected move not found");
             }
-            for (int i = 0; i < b_moves.size(); i++) {
-                Move m = b_moves.at(i);
-                std::string cadena = "From: " + std::to_string(m.from) + " | To: " + std::to_string(m.to);
-                std::cout << cadena << std::endl;
+
+            Assert::AreEqual(expectedBlackMoves.size(), b_moves.size());
+            for (const auto& expectedMove : expectedBlackMoves) {
+                bool found = std::find(b_moves.begin(), b_moves.end(), expectedMove) != b_moves.end();
+                Assert::IsTrue(found, L"Expected move not found");
             }
-            */
-            Assert::AreEqual(3, (int)w_moves.size());
-            Assert::AreEqual(3, (int)b_moves.size());
         }
         TEST_METHOD(TestGenerateBishopMovesUpAndRight)
         {
