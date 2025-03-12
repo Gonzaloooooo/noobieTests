@@ -218,7 +218,7 @@ namespace Tests
             Assert::AreEqual(expected_w_king, b.getBitboardFromType(Board::W_KING));
             Assert::AreEqual(expected_b_king, b.getBitboardFromType(Board::B_KING));
         }
-        TEST_METHOD(getBitFromBoard) {
+        TEST_METHOD(TestGetBitFromBoard) {
             Board board = new Board(true);
 
             board.setBitOfBoard(Board::W_PAWN, 0);
@@ -229,6 +229,17 @@ namespace Tests
             Assert::AreEqual(board.getBitFromBoard(Board::W_KNIGHT, 10), 1);
             Assert::AreEqual(board.getBitFromBoard(Board::B_QUEEN, 63), 1);
             Assert::AreEqual(board.getBitFromBoard(Board::B_QUEEN, 62), 0);
+        }
+        TEST_METHOD(TestClearBitOfBoard) {
+            Board board = new Board(true);
+
+            board.setBitOfBoard(Board::W_PAWN, 10);
+
+            Assert::AreEqual(board.getBitFromBoard(Board::W_PAWN, 10), 1);
+
+            board.clearBitOfBoard(Board::W_PAWN, 10);
+
+            Assert::AreEqual(board.getBitFromBoard(Board::W_PAWN, 10), 0);
         }
 	};
 
