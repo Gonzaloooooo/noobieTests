@@ -218,6 +218,18 @@ namespace Tests
             Assert::AreEqual(expected_w_king, b.getBitboardFromType(Board::W_KING));
             Assert::AreEqual(expected_b_king, b.getBitboardFromType(Board::B_KING));
         }
+        TEST_METHOD(getBitFromBoard) {
+            Board board = new Board(true);
+
+            board.setBitOfBoard(Board::W_PAWN, 0);
+            board.setBitOfBoard(Board::W_KNIGHT, 10);
+            board.setBitOfBoard(Board::B_QUEEN, 63);
+
+            Assert::AreEqual(board.getBitFromBoard(Board::W_PAWN, 0), 1);
+            Assert::AreEqual(board.getBitFromBoard(Board::W_KNIGHT, 10), 1);
+            Assert::AreEqual(board.getBitFromBoard(Board::B_QUEEN, 63), 1);
+            Assert::AreEqual(board.getBitFromBoard(Board::B_QUEEN, 62), 0);
+        }
 	};
 
     TEST_CLASS(MoveGeneratorTest) 
