@@ -176,6 +176,48 @@ namespace Tests
             Assert::AreEqual(b.getBoardIndexFromMoveGenerator(100), -1);
             Assert::AreEqual(b.getBoardIndexFromMoveGenerator(-1), -1);
         }
+        TEST_METHOD(TestSetBitOfBoard) {
+            Board b = new Board(true);
+
+            uint64_t expected_w_pawn = 1ULL << 35;
+            uint64_t expected_b_pawn = 1ULL << 23;
+            uint64_t expected_w_bishop = 1ULL << 12;
+            uint64_t expected_b_bishop = 1ULL << 43;
+            uint64_t expected_w_knight = 1ULL << 55;
+            uint64_t expected_b_knight = 1ULL << 62;
+            uint64_t expected_w_tower = 1ULL << 34;
+            uint64_t expected_b_tower = 1ULL << 17;
+            uint64_t expected_w_queen = 1ULL << 21;
+            uint64_t expected_b_queen = 1ULL << 49;
+            uint64_t expected_w_king = 1ULL << 56;
+            uint64_t expected_b_king = 1ULL << 38;
+
+            b.setBitOfBoard(Board::W_PAWN, 35);
+            b.setBitOfBoard(Board::B_PAWN, 23);
+            b.setBitOfBoard(Board::W_BISHOP, 12);
+            b.setBitOfBoard(Board::B_BISHOP, 43);
+            b.setBitOfBoard(Board::W_KNIGHT, 55);
+            b.setBitOfBoard(Board::B_KNIGHT, 62);
+            b.setBitOfBoard(Board::W_TOWER, 34);
+            b.setBitOfBoard(Board::B_TOWER, 17);
+            b.setBitOfBoard(Board::W_QUEEN, 21);
+            b.setBitOfBoard(Board::B_QUEEN, 49);
+            b.setBitOfBoard(Board::W_KING, 56);
+            b.setBitOfBoard(Board::B_KING,38);
+
+            Assert::AreEqual(expected_w_pawn, b.getBitboardFromType(Board::W_PAWN));
+            Assert::AreEqual(expected_b_pawn, b.getBitboardFromType(Board::B_PAWN));
+            Assert::AreEqual(expected_w_bishop, b.getBitboardFromType(Board::W_BISHOP));
+            Assert::AreEqual(expected_b_bishop, b.getBitboardFromType(Board::B_BISHOP));
+            Assert::AreEqual(expected_w_knight, b.getBitboardFromType(Board::W_KNIGHT));
+            Assert::AreEqual(expected_b_knight, b.getBitboardFromType(Board::B_KNIGHT));
+            Assert::AreEqual(expected_w_tower, b.getBitboardFromType(Board::W_TOWER));
+            Assert::AreEqual(expected_b_tower, b.getBitboardFromType(Board::B_TOWER));
+            Assert::AreEqual(expected_w_queen, b.getBitboardFromType(Board::W_QUEEN));
+            Assert::AreEqual(expected_b_queen, b.getBitboardFromType(Board::B_QUEEN));
+            Assert::AreEqual(expected_w_king, b.getBitboardFromType(Board::W_KING));
+            Assert::AreEqual(expected_b_king, b.getBitboardFromType(Board::B_KING));
+        }
 	};
 
     TEST_CLASS(MoveGeneratorTest) 
