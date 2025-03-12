@@ -143,6 +143,39 @@ namespace Tests
 
             Assert::AreEqual(expected, result);
         }
+        TEST_METHOD(TestGetBoardIndexFromMoveGeneratorWhite) 
+        {
+            Board b = new Board(true);
+            b.setWhiteToMove(true);
+            
+            Assert::AreEqual(b.getBoardIndexFromMoveGenerator(MoveGenerator::PAWN), (int)Board::W_PAWN);
+            Assert::AreEqual(b.getBoardIndexFromMoveGenerator(MoveGenerator::BISHOP), (int)Board::W_BISHOP);
+            Assert::AreEqual(b.getBoardIndexFromMoveGenerator(MoveGenerator::KNIGHT), (int)Board::W_KNIGHT);
+            Assert::AreEqual(b.getBoardIndexFromMoveGenerator(MoveGenerator::TOWER), (int)Board::W_TOWER);
+            Assert::AreEqual(b.getBoardIndexFromMoveGenerator(MoveGenerator::QUEEN), (int)Board::W_QUEEN);
+            Assert::AreEqual(b.getBoardIndexFromMoveGenerator(MoveGenerator::KING), (int)Board::W_KING);
+        }
+        TEST_METHOD(TestGetBoardIndexFromMoveGeneratorBlack)
+        {
+            Board b = new Board(true);
+            b.setWhiteToMove(false);
+
+            Assert::AreEqual(b.getBoardIndexFromMoveGenerator(MoveGenerator::PAWN), (int)Board::B_PAWN);
+            Assert::AreEqual(b.getBoardIndexFromMoveGenerator(MoveGenerator::BISHOP), (int)Board::B_BISHOP);
+            Assert::AreEqual(b.getBoardIndexFromMoveGenerator(MoveGenerator::KNIGHT), (int)Board::B_KNIGHT);
+            Assert::AreEqual(b.getBoardIndexFromMoveGenerator(MoveGenerator::TOWER), (int)Board::B_TOWER);
+            Assert::AreEqual(b.getBoardIndexFromMoveGenerator(MoveGenerator::QUEEN), (int)Board::B_QUEEN);
+            Assert::AreEqual(b.getBoardIndexFromMoveGenerator(MoveGenerator::KING), (int)Board::B_KING);
+        }
+        TEST_METHOD(TestGetBoardIndexFromMoveGeneratorInvalidInput)
+        {
+            Board b = new Board(true);
+            b.setWhiteToMove(true);
+
+            Assert::AreEqual(b.getBoardIndexFromMoveGenerator(12), -1);
+            Assert::AreEqual(b.getBoardIndexFromMoveGenerator(100), -1);
+            Assert::AreEqual(b.getBoardIndexFromMoveGenerator(-1), -1);
+        }
 	};
 
     TEST_CLASS(MoveGeneratorTest) 
