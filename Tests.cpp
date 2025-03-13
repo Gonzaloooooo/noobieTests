@@ -241,6 +241,119 @@ namespace Tests
 
             Assert::AreEqual(board.getBitFromBoard(Board::W_PAWN, 10), 0);
         }
+        TEST_METHOD(TestMakeMoveSimpleMove) {
+            Board board = new Board(false);
+            board.setBitOfBoard(Board::W_KNIGHT, 1);
+
+            Move m{ 1, 18, MoveGenerator::KNIGHT, -1 };
+
+            board.makeMove(m);
+
+            Assert::AreEqual(1, board.getBitFromBoard(Board::W_KNIGHT, 18));
+            Assert::AreEqual(0, board.getBitFromBoard(Board::W_KNIGHT, 1));
+        }
+        TEST_METHOD(TestMakeMoveCapture) {
+            Board board = new Board(false);
+            board.setBitOfBoard(Board::W_BISHOP, 27);
+            board.setBitOfBoard(Board::B_PAWN, 36);
+
+            Move m{ 27, 36, MoveGenerator::BISHOP, -1 };
+
+            board.makeMove(m);
+
+            Assert::AreEqual(1, board.getBitFromBoard(Board::W_BISHOP, 36));
+            Assert::AreEqual(0, board.getBitFromBoard(Board::W_BISHOP, 27));
+
+            Assert::AreEqual(0, board.getBitFromBoard(Board::W_PAWN, 36));
+
+        }
+        TEST_METHOD(TestMakeMoveWhiteKingCastlingFlags) {
+            Board board = new Board(false);
+
+            board.setBitOfBoard(Board::W_KING, 4);
+            Assert::IsTrue(board.getWhiteCastle());
+
+            Move m{ 4, 5, MoveGenerator::KING, -1 };
+
+            board.makeMove(m);
+            Assert::IsFalse(board.getWhiteCastle());
+        }
+        TEST_METHOD(TestMakeMoveBlackKingCastlingFlags) {
+            Board board = new Board(false);
+            board.setWhiteToMove(false);
+
+            board.setBitOfBoard(Board::B_KING, 60);
+            Assert::IsTrue(board.getBlackCastle());
+
+            Move m{ 60, 61, MoveGenerator::KING, -1 };
+
+            board.makeMove(m);
+            Assert::IsFalse(board.getBlackCastle());
+        }
+        TEST_METHOD(TestMakeMoveRightWhiteTowerCastlingFlags) {
+            Board board = new Board(false);
+            
+            board.setBitOfBoard(Board::W_TOWER, 7);
+            Assert::IsTrue(board.getRightWhiteCastle());
+
+            Move m{ 7, 6, MoveGenerator::TOWER, -1 };
+
+            board.makeMove(m);
+            Assert::IsFalse(board.getRightWhiteCastle());
+        }
+        TEST_METHOD(TestMakeMoveLeftWhiteTowerCastlingFlags) {
+            Board board = new Board(false);
+
+            board.setBitOfBoard(Board::W_TOWER, 0);
+            Assert::IsTrue(board.getLeftWhiteCastle());
+
+            Move m{ 0, 1, MoveGenerator::TOWER, -1 };
+
+            board.makeMove(m);
+            Assert::IsFalse(board.getLeftWhiteCastle());
+        }
+        TEST_METHOD(TestMakeMoveRightBlackTowerCastlingFlags) {
+            Board board = new Board(false);
+            board.setWhiteToMove(false);
+
+            board.setBitOfBoard(Board::B_TOWER, 63);
+            Assert::IsTrue(board.getRightBlackCastle());
+
+            Move m{ 63, 62, MoveGenerator::TOWER, -1 };
+
+            board.makeMove(m);
+            Assert::IsFalse(board.getRightBlackCastle());
+        }
+        TEST_METHOD(TestMakeMoveLeftBlackTowerCastlingFlags) {
+            Board board = new Board(false);
+            board.setWhiteToMove(false);
+
+            board.setBitOfBoard(Board::B_TOWER, 56);
+            Assert::IsTrue(board.getLeftBlackCastle());
+
+            Move m{ 56, 57, MoveGenerator::TOWER, -1 };
+
+            board.makeMove(m);
+            Assert::IsFalse(board.getLeftBlackCastle());
+        }
+        TEST_METHOD(TestMakeMovePromotion) {
+            Board board = new Board(false);
+            
+            board.setBitOfBoard(Board::W_PAWN, 51);
+            board.setBitOfBoard(Board::B_PAWN, 11);
+
+            Move w_move{51, 59, MoveGenerator::PAWN, MoveGenerator::QUEEN};
+            board.makeMove(w_move);
+
+            Assert::AreEqual(0, board.getBitFromBoard(Board::W_PAWN, 59));
+            Assert::AreEqual(1, board.getBitFromBoard(Board::W_QUEEN, 59));
+
+            Move b_move{ 11, 3, MoveGenerator::PAWN, MoveGenerator::QUEEN };
+            board.makeMove(b_move);
+
+            Assert::AreEqual(0, board.getBitFromBoard(Board::B_PAWN, 3));
+            Assert::AreEqual(1, board.getBitFromBoard(Board::B_QUEEN, 3));
+        }
 	};
 
     TEST_CLASS(MoveGeneratorTest) 
