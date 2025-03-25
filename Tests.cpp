@@ -354,6 +354,185 @@ namespace Tests
             Assert::AreEqual(0, board.getBitFromBoard(Board::B_PAWN, 3));
             Assert::AreEqual(1, board.getBitFromBoard(Board::B_QUEEN, 3));
         }
+        TEST_METHOD(TestIsVerticalPathClear) {
+            Board board = new Board(false);
+            Move move;
+            MoveGenerator moveGen;
+
+            // Prueba 1: Movimiento de arriba hacia abajo con una torre bloqueada en el camino
+            // Colocamos una torre en a1 y una pieza bloqueadora en a5
+            board.setBitOfBoard(Board::W_TOWER, 0);  // a1 = 0
+            board.setBitOfBoard(Board::B_PAWN, 32);   // a5 = 32
+
+            // Intentamos mover la torre de a1 a a8, lo que debería fallar debido al bloqueador en a5
+            move.from = 0;
+            move.to = 56;
+            move.piece = MoveGenerator::TOWER;
+
+            bool resultUpToDown = moveGen.isLegal(board, move);
+            Assert::IsFalse(resultUpToDown); // Esperamos que el movimiento falle debido al bloqueador en a5
+
+            board.clearBitOfBoard(Board::W_TOWER, 0);
+            board.clearBitOfBoard(Board::B_PAWN, 32);
+
+            // Prueba 2: Movimiento de abajo hacia arriba con una torre bloqueada en el camino
+            // Colocamos una torre en a8 y una pieza bloqueadora en a5
+            board.setBitOfBoard(Board::W_TOWER, 56);  // a8 = 56
+            board.setBitOfBoard(Board::B_PAWN, 32);   // a5 = 32
+
+            // Intentamos mover la torre de a8 a a1, lo que debería fallar debido al bloqueador en a5
+            move.from = 56;
+            move.to = 0;
+            move.piece = MoveGenerator::TOWER;
+
+            bool resultDownToUp = moveGen.isLegal(board, move);
+            Assert::IsFalse(resultDownToUp); // Esperamos que el movimiento falle debido al bloqueador en a5
+
+
+            // Ahora probamos con una reina en lugar de una torre, lo mismo se espera para ambos casos.
+
+            // Prueba 3: Movimiento de arriba hacia abajo con una reina bloqueada en el camino
+            // Colocamos una reina en a1 y una pieza bloqueadora en a5
+            board.setBitOfBoard(Board::W_QUEEN, 0);  // a1 = 0
+            board.setBitOfBoard(Board::B_PAWN, 32);   // a5 = 32
+
+            // Intentamos mover la reina de a1 a a8, lo que debería fallar debido al bloqueador en a5
+            move.from = 0;
+            move.to = 56;
+            move.piece = MoveGenerator::QUEEN;
+
+            bool resultUpToDownQueen = moveGen.isLegal(board, move);
+            Assert::IsFalse(resultUpToDownQueen); // Esperamos que el movimiento falle debido al bloqueador en a5
+
+            // Prueba 4: Movimiento de abajo hacia arriba con una reina bloqueada en el camino
+            // Colocamos una reina en a8 y una pieza bloqueadora en a5
+            board.setBitOfBoard(Board::W_QUEEN, 56);  // a8 = 56
+            board.setBitOfBoard(Board::B_PAWN, 32);   // a5 = 32
+
+            // Intentamos mover la reina de a8 a a1, lo que debería fallar debido al bloqueador en a5
+            move.from = 56;
+            move.to = 0;
+            move.piece = MoveGenerator::QUEEN;
+
+            bool resultDownToUpQueen = moveGen.isLegal(board, move);
+            Assert::IsFalse(resultDownToUpQueen); // Esperamos que el movimiento falle debido al bloqueador en a5
+        }
+        TEST_METHOD(TestIsHorizontalPathClear_LeftToRight_NoBlock){
+            Board board = new Board(false); 
+            MoveGenerator moveGen;
+            Move m1 = { 0, 3, MoveGenerator::TOWER }; // Torre moviéndose de a1 a a4 (casillas 0 a 3)
+
+            board.setBitOfBoard(Board::W_TOWER, 0);
+
+            bool result = moveGen.isLegal(board, m1);
+            Assert::IsTrue(result);
+
+            // Vacía la casilla
+            board.clearBitOfBoard(Board::W_TOWER, 0);
+
+            Move m2 = { 0, 3, MoveGenerator::QUEEN }; 
+
+            board.setBitOfBoard(Board::W_QUEEN, 0);
+
+            result = moveGen.isLegal(board, m2);
+            Assert::IsTrue(result);
+        }
+        TEST_METHOD(testIsLegal_HorizontalPathClear_LeftToRight_WithBlock) {
+            Board board = new Board(false);
+            MoveGenerator moveGen;
+            Move m1 = { 0, 3, MoveGenerator::TOWER }; 
+
+            board.setBitOfBoard(Board::W_TOWER, 0);
+            board.setBitOfBoard(Board::B_PAWN, 2);
+            
+            bool result = moveGen.isLegal(board, m1);
+            Assert::IsFalse(result);
+
+            // Vacía la casilla
+            board.clearBitOfBoard(Board::W_TOWER, 0);
+
+            Move m2 = { 0, 3, MoveGenerator::QUEEN }; 
+
+            board.setBitOfBoard(Board::W_QUEEN, 0);
+
+            result = moveGen.isLegal(board, m2);
+            Assert::IsFalse(result); 
+        }
+        TEST_METHOD(testIsLegal_HorizontalPathClear_RightToLeft_NoBlock) {
+            Board board = new Board(false);
+            MoveGenerator moveGen;
+            Move m1 = { 3, 0, MoveGenerator::TOWER };
+
+            board.setBitOfBoard(Board::W_TOWER, 3);
+
+            bool result = moveGen.isLegal(board, m1);
+            Assert::IsTrue(result);
+
+            // Vacía la casilla
+            board.clearBitOfBoard(Board::W_TOWER, 3);
+
+            Move m2 = { 3, 0, MoveGenerator::QUEEN };
+
+            board.setBitOfBoard(Board::W_QUEEN, 3);
+
+            result = moveGen.isLegal(board, m2);
+            Assert::IsTrue(result);
+        }
+        TEST_METHOD(testIsLegal_HorizontalPathClear_RightToLeft_WithBlock) {
+            Board board = new Board(false);
+            MoveGenerator moveGen;
+            Move m1 = { 3, 0, MoveGenerator::TOWER };
+
+            board.setBitOfBoard(Board::W_TOWER, 3);
+            board.setBitOfBoard(Board::B_PAWN, 2);
+
+            bool result = moveGen.isLegal(board, m1);
+            Assert::IsFalse(result);
+
+            // Vacía la casilla
+            board.clearBitOfBoard(Board::W_TOWER, 3);
+
+            Move m2 = { 3, 0, MoveGenerator::QUEEN };
+
+            board.setBitOfBoard(Board::W_QUEEN, 3);
+
+            result = moveGen.isLegal(board, m2);
+            Assert::IsFalse(result);
+        }
+        TEST_METHOD(testIsLegal_DiagonalPathClear_NoBlock) {
+            Board board = new Board(false);
+            MoveGenerator moveGen;
+            Move m1 = { 27, 63, MoveGenerator::BISHOP };
+            Move m2 = { 27, 48, MoveGenerator::BISHOP };
+            Move m3 = { 27, 0,  MoveGenerator::BISHOP };
+            Move m4 = { 27, 6,  MoveGenerator::BISHOP };
+
+            board.setBitOfBoard(Board::W_BISHOP, 27);
+
+            Assert::IsTrue(moveGen.isLegal(board, m1));
+            Assert::IsTrue(moveGen.isLegal(board, m2));
+            Assert::IsTrue(moveGen.isLegal(board, m3));
+            Assert::IsTrue(moveGen.isLegal(board, m4));
+        }
+        TEST_METHOD(testIsLegal_DiagonalPathClear_WithBlock) {
+            Board board = new Board(false);
+            MoveGenerator moveGen;
+            Move m1 = { 27, 63, MoveGenerator::BISHOP };
+            Move m2 = { 27, 48, MoveGenerator::BISHOP };
+            Move m3 = { 27, 0,  MoveGenerator::BISHOP };
+            Move m4 = { 27, 6,  MoveGenerator::BISHOP };
+
+            board.setBitOfBoard(Board::W_BISHOP, 27);
+            board.setBitOfBoard(Board::B_PAWN, 41);
+            board.setBitOfBoard(Board::B_PAWN, 45);
+            board.setBitOfBoard(Board::B_PAWN, 13);
+            board.setBitOfBoard(Board::B_PAWN, 9);
+
+            Assert::IsFalse(moveGen.isLegal(board, m1));
+            Assert::IsFalse(moveGen.isLegal(board, m2));
+            Assert::IsFalse(moveGen.isLegal(board, m3));
+            Assert::IsFalse(moveGen.isLegal(board, m4));
+        }
 	};
 
     TEST_CLASS(MoveGeneratorTest) 
