@@ -533,6 +533,40 @@ namespace Tests
             Assert::IsFalse(moveGen.isLegal(board, m3));
             Assert::IsFalse(moveGen.isLegal(board, m4));
         }
+        TEST_METHOD(TestIsKingInCheck) {
+            Board board = new Board(false);
+            MoveGenerator moveGen;
+
+            board.setBitOfBoard(Board::W_KING, 4);
+            board.setBitOfBoard(Board::W_PAWN, 15);
+            board.setBitOfBoard(Board::W_PAWN, 43);
+            board.setBitOfBoard(Board::B_KING, 60);
+            board.setBitOfBoard(Board::B_PAWN, 55);
+            board.setBitOfBoard(Board::B_PAWN, 11);
+
+            Move illegalWhite { 15, 23, MoveGenerator::PAWN };
+            Move legalWhite { 4, 11, MoveGenerator::KING };
+            Move followUpBlack { 55, 47, MoveGenerator::PAWN };
+            Move whiteChecksBlack {43, 51, MoveGenerator::PAWN };
+
+            Assert::IsFalse(moveGen.isLegal(board, illegalWhite));
+
+            Assert::IsTrue(moveGen.isLegal(board, legalWhite));
+            board.makeMove(legalWhite);
+
+            Assert::IsTrue(moveGen.isLegal(board, followUpBlack));
+            board.makeMove(followUpBlack);
+
+            Assert::IsTrue(moveGen.isLegal(board, whiteChecksBlack));
+            board.makeMove(whiteChecksBlack);
+
+            Move illegalBlack { 47, 39, MoveGenerator::PAWN };
+            Move legalBlack{ 60, 51, MoveGenerator::PAWN };
+
+            Assert::IsFalse(moveGen.isLegal(board, illegalBlack));
+
+            Assert::IsTrue(moveGen.isLegal(board, legalBlack));
+        }
 	};
 
     TEST_CLASS(MoveGeneratorTest) 
