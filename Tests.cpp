@@ -567,6 +567,35 @@ namespace Tests
 
             Assert::IsTrue(moveGen.isLegal(board, legalBlack));
         }
+        TEST_METHOD(TestStalemate) {
+            Board board = new Board(false);
+            MoveGenerator moveGen;
+
+            board.setBitOfBoard(Board::W_KING, 4);
+            board.setBitOfBoard(Board::B_KING, 60);
+
+            // Piezas que ahogan al rey blanco
+            board.setBitOfBoard(Board::B_TOWER, 8);
+            board.setBitOfBoard(Board::B_BISHOP, 12);
+
+            uint64_t before = board.getOccupiedBitBoard();
+
+            Move illegalWhite{4, 5, MoveGenerator::KING};
+
+            std::vector<Move> moves = moveGen.generateMoves(board, Board::WHITE);
+
+            for (const auto move : moves) {
+                Assert::IsFalse(moveGen.isLegal(board, move));
+            }
+    
+            board.setStalemate(true);
+
+            board.makeMove(illegalWhite);
+
+            uint64_t after = board.getOccupiedBitBoard();
+
+            Assert::IsTrue(before == after);
+        }
 	};
 
     TEST_CLASS(MoveGeneratorTest) 
