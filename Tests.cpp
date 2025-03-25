@@ -354,6 +354,130 @@ namespace Tests
             Assert::AreEqual(0, board.getBitFromBoard(Board::B_PAWN, 3));
             Assert::AreEqual(1, board.getBitFromBoard(Board::B_QUEEN, 3));
         }
+        TEST_METHOD(TestMakeMoveEnPassant) {
+            Board board = new Board(false);
+            board.setWhiteToMove(false);
+
+            // Pawn that makes en passant
+            board.setBitOfBoard(Board::W_PAWN, 36);
+
+            // Pawn to be captured
+            board.setBitOfBoard(Board::B_PAWN, 51);
+
+            // board.printBitboard(board.getOccupiedBitBoard());
+            // std::cout << "-" << std::endl;
+
+            board.makeMove({ 51, 35, MoveGenerator::PAWN });
+            
+            // board.printBitboard(board.getOccupiedBitBoard());
+            // std::cout << "-" << std::endl;
+
+            board.makeMove({ 36, 43, MoveGenerator::PAWN });
+
+            // board.printBitboard(board.getOccupiedBitBoard());
+            // std::cout << "-" << std::endl;
+
+            Assert::IsTrue(0 == board.getBitFromBoard(Board::B_PAWN, 35));
+            Assert::IsTrue(1 == board.getBitFromBoard(Board::W_PAWN, 43));
+
+            board.clearBitOfBoard(Board::W_PAWN, 43);
+
+            // With black pieces
+            board.setWhiteToMove(true);
+
+            // Pawn that makes en passant
+            board.setBitOfBoard(Board::W_PAWN, 12);
+
+            // Pawn to be captured
+            board.setBitOfBoard(Board::B_PAWN, 27);
+
+            //board.printBitboard(board.getOccupiedBitBoard());
+            //std::cout << "-" << std::endl;
+
+            board.makeMove({ 12, 28, MoveGenerator::PAWN });
+
+            //board.printBitboard(board.getOccupiedBitBoard());
+            //std::cout << "-" << std::endl;
+
+            board.makeMove({ 27, 20, MoveGenerator::PAWN });
+
+            //board.printBitboard(board.getOccupiedBitBoard());
+            //std::cout << "-" << std::endl;
+
+            Assert::IsTrue(0 == board.getBitFromBoard(Board::W_PAWN, 28));
+            Assert::IsTrue(1 == board.getBitFromBoard(Board::B_PAWN, 20));
+        }
+        TEST_METHOD(TestMakeMoveEnPassant2Step) {
+            Board board = new Board(false);
+            board.setWhiteToMove(false);
+
+            // Pawn that makes en passant
+            board.setBitOfBoard(Board::W_PAWN, 28);
+
+            // Pawn to be captured
+            board.setBitOfBoard(Board::B_PAWN, 51);
+
+            //board.printBitboard(board.getOccupiedBitBoard());
+            //std::cout << "-" << std::endl;
+
+            board.makeMove({ 51, 43, MoveGenerator::PAWN });
+
+            //board.printBitboard(board.getOccupiedBitBoard());
+            //std::cout << "-" << std::endl;
+
+            board.makeMove({ 28, 36, MoveGenerator::PAWN });
+
+            //board.printBitboard(board.getOccupiedBitBoard());
+            //std::cout << "-" << std::endl;
+
+            board.makeMove({ 43, 35, MoveGenerator::PAWN });
+
+            //board.printBitboard(board.getOccupiedBitBoard());
+            //std::cout << "-" << std::endl;
+
+            board.makeMove({ 36, 43, MoveGenerator::PAWN});
+
+            //board.printBitboard(board.getOccupiedBitBoard());
+            //std::cout << "-" << std::endl;
+
+            Assert::IsTrue(1 == board.getBitFromBoard(Board::W_PAWN, 43));
+            Assert::IsTrue(1 == board.getBitFromBoard(Board::B_PAWN, 35));
+
+            // With black pieces
+            board.setWhiteToMove(true);
+
+            board.clearBitOfBoard(Board::W_PAWN, 43);
+            board.clearBitOfBoard(Board::B_PAWN, 35);
+
+            board.setBitOfBoard(Board::W_PAWN, 11);
+            board.setBitOfBoard(Board::B_PAWN, 36);
+
+            //board.printBitboard(board.getOccupiedBitBoard());
+            //std::cout << "-" << std::endl;
+
+            board.makeMove({ 11, 19, MoveGenerator::PAWN });
+
+            //board.printBitboard(board.getOccupiedBitBoard());
+            //std::cout << "-" << std::endl;
+
+            board.makeMove({ 36, 28, MoveGenerator::PAWN });
+
+            //board.printBitboard(board.getOccupiedBitBoard());
+            //std::cout << "-" << std::endl;
+
+            board.makeMove({ 19, 27, MoveGenerator::PAWN });
+
+            //board.printBitboard(board.getOccupiedBitBoard());
+            //std::cout << "-" << std::endl;
+
+            board.makeMove({ 28, 19, MoveGenerator::PAWN });
+
+            //board.printBitboard(board.getOccupiedBitBoard());
+            //std::cout << "-" << std::endl;
+
+            Assert::IsTrue(1 == board.getBitFromBoard(Board::W_PAWN, 27));
+            Assert::IsTrue(1 == board.getBitFromBoard(Board::B_PAWN, 19));
+        }
         TEST_METHOD(TestIsVerticalPathClear) {
             Board board = new Board(false);
             Move move;
@@ -1283,6 +1407,41 @@ namespace Tests
                 bool found = std::find(b_moves.begin(), b_moves.end(), expectedMove) != b_moves.end();
                 Assert::IsTrue(found, L"Expected move not found");
             }
+        }
+        TEST_METHOD(TestFilterMoves) {
+            MoveGenerator moveGen;
+            Board board = new Board(false);
+
+            std::vector<Move> w_moves = moveGen.generateMoves(board, Board::WHITE);
+            std::vector<Move> b_moves = moveGen.generateMoves(board, Board::BLACK);
+
+            std::vector<Move> expectedWhiteMoves = {
+                // Peones avanzando una casilla
+                {8, 16, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},  // Peón en a2 a a3
+                {9, 17, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},  // Peón en b2 a b3
+                {10, 18, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en c2 a c3
+                {11, 19, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en d2 a d3
+                {12, 20, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en e2 a e3
+                {13, 21, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en f2 a f3
+                {14, 22, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en g2 a g3
+                {15, 23, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en h2 a h3
+
+                // Peones avanzando dos casillas (primer movimiento)
+                {8, 24, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},  // Peón en a2 a a4
+                {9, 25, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},  // Peón en b2 a b4
+                {10, 26, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en c2 a c4
+                {11, 27, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en d2 a d4
+                {12, 28, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en e2 a e4
+                {13, 29, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en f2 a f4
+                {14, 30, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en g2 a g4
+                {15, 31, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en h2 a h4
+
+                // Movimientos de los caballos
+                {1, 16, MoveGenerator::KNIGHT, MoveGenerator::NULL_TYPE}, // Caballo b1 a a3
+                {1, 18, MoveGenerator::KNIGHT, MoveGenerator::NULL_TYPE}, // Caballo b1 a c3
+                {6, 21, MoveGenerator::KNIGHT, MoveGenerator::NULL_TYPE}, // Caballo g1 a f3
+                {6, 23, MoveGenerator::KNIGHT, MoveGenerator::NULL_TYPE}  // Caballo g1 a h3
+            };
         }
     };
 }
