@@ -542,7 +542,7 @@ namespace Tests
             Assert::IsFalse(resultDownToUpQueen); // Esperamos que el movimiento falle debido al bloqueador en a5
         }
         TEST_METHOD(TestIsHorizontalPathClear_LeftToRight_NoBlock){
-            Board board = new Board(false); 
+            Board board(true); 
             MoveGenerator moveGen;
             Move m1 = { 0, 3, MoveGenerator::TOWER }; // Torre moviéndose de a1 a a4 (casillas 0 a 3)
 
@@ -562,7 +562,7 @@ namespace Tests
             Assert::IsTrue(result);
         }
         TEST_METHOD(testIsLegal_HorizontalPathClear_LeftToRight_WithBlock) {
-            Board board = new Board(false);
+            Board board(false);
             MoveGenerator moveGen;
             Move m1 = { 0, 3, MoveGenerator::TOWER }; 
 
@@ -583,7 +583,7 @@ namespace Tests
             Assert::IsFalse(result); 
         }
         TEST_METHOD(testIsLegal_HorizontalPathClear_RightToLeft_NoBlock) {
-            Board board = new Board(false);
+            Board board(true);
             MoveGenerator moveGen;
             Move m1 = { 3, 0, MoveGenerator::TOWER };
 
@@ -603,7 +603,7 @@ namespace Tests
             Assert::IsTrue(result);
         }
         TEST_METHOD(testIsLegal_HorizontalPathClear_RightToLeft_WithBlock) {
-            Board board = new Board(false);
+            Board board(false);
             MoveGenerator moveGen;
             Move m1 = { 3, 0, MoveGenerator::TOWER };
 
@@ -624,7 +624,7 @@ namespace Tests
             Assert::IsFalse(result);
         }
         TEST_METHOD(testIsLegal_DiagonalPathClear_NoBlock) {
-            Board board = new Board(false);
+            Board board(true);
             MoveGenerator moveGen;
             Move m1 = { 27, 63, MoveGenerator::BISHOP };
             Move m2 = { 27, 48, MoveGenerator::BISHOP };
@@ -639,7 +639,7 @@ namespace Tests
             Assert::IsTrue(moveGen.isLegal(board, m4));
         }
         TEST_METHOD(testIsLegal_DiagonalPathClear_WithBlock) {
-            Board board = new Board(false);
+            Board board(false);
             MoveGenerator moveGen;
             Move m1 = { 27, 63, MoveGenerator::BISHOP };
             Move m2 = { 27, 48, MoveGenerator::BISHOP };
@@ -658,7 +658,7 @@ namespace Tests
             Assert::IsFalse(moveGen.isLegal(board, m4));
         }
         TEST_METHOD(TestIsKingInCheck) {
-            Board board = new Board(false);
+            Board board(true);
             MoveGenerator moveGen;
 
             board.setBitOfBoard(Board::W_KING, 4);
@@ -692,7 +692,7 @@ namespace Tests
             Assert::IsTrue(moveGen.isLegal(board, legalBlack));
         }
         TEST_METHOD(TestStalemate) {
-            Board board = new Board(false);
+            Board board(false);
             MoveGenerator moveGen;
 
             board.setBitOfBoard(Board::W_KING, 4);
@@ -1410,10 +1410,7 @@ namespace Tests
         }
         TEST_METHOD(TestFilterMoves) {
             MoveGenerator moveGen;
-            Board board = new Board(false);
-
-            std::vector<Move> w_moves = moveGen.generateMoves(board, Board::WHITE);
-            std::vector<Move> b_moves = moveGen.generateMoves(board, Board::BLACK);
+            Board board(false);
 
             std::vector<Move> expectedWhiteMoves = {
                 // Peones avanzando una casilla
@@ -1442,6 +1439,46 @@ namespace Tests
                 {6, 21, MoveGenerator::KNIGHT, MoveGenerator::NULL_TYPE}, // Caballo g1 a f3
                 {6, 23, MoveGenerator::KNIGHT, MoveGenerator::NULL_TYPE}  // Caballo g1 a h3
             };
+
+            std::vector<Move> expectedBlackMoves = {
+                // Peones avanzando una casilla
+                {48, 40, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en a7 a a6
+                {49, 41, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en b7 a b6
+                {50, 42, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en c7 a c6
+                {51, 43, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en d7 a d6
+                {52, 44, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en e7 a e6
+                {53, 45, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en f7 a f6
+                {54, 46, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en g7 a g6
+                {55, 47, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en h7 a h6
+
+                // Peones avanzando dos casillas (primer movimiento)
+                {48, 32, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en a7 a a5
+                {49, 33, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en b7 a b5
+                {50, 34, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en c7 a c5
+                {51, 35, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en d7 a d5
+                {52, 36, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en e7 a e5
+                {53, 37, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en f7 a f5
+                {54, 38, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en g7 a g5
+                {55, 39, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en h7 a h5
+
+                // Movimientos de los caballos
+                {57, 42, MoveGenerator::KNIGHT, MoveGenerator::NULL_TYPE}, // Caballo b8 a a6
+                {57, 44, MoveGenerator::KNIGHT, MoveGenerator::NULL_TYPE}, // Caballo b8 a c6
+                {62, 47, MoveGenerator::KNIGHT, MoveGenerator::NULL_TYPE}, // Caballo g8 a f6
+                {62, 45, MoveGenerator::KNIGHT, MoveGenerator::NULL_TYPE}  // Caballo g8 a h6
+            };
+
+            std::vector<Move> w_moves = moveGen.generateMoves(board, Board::WHITE);
+            moveGen.filterMoves(board, w_moves);
+
+            Assert::AreEqual(expectedWhiteMoves.size(), w_moves.size());
+
+            board.makeMove({8, 16, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE});
+
+            std::vector<Move> b_moves = moveGen.generateMoves(board, Board::BLACK);
+            moveGen.filterMoves(board, b_moves);
+
+            Assert::AreEqual(expectedBlackMoves.size(), b_moves.size());
         }
     };
 }
