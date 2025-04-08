@@ -720,6 +720,27 @@ namespace Tests
 
             Assert::IsTrue(before == after);
         }
+        TEST_METHOD(TestUnmakeMove) {
+            Board board(false);
+
+            board.printBitboard(board.getOccupiedBitBoard());
+            std::cout<<"-------------"<< std::endl;
+
+            board.makeMove({11, 19, MoveGenerator::PAWN});
+            board.printBitboard(board.getOccupiedBitBoard());
+            std::cout << "-------------" << std::endl;
+
+            board.makeMove({52, 36, MoveGenerator::PAWN});
+            board.printBitboard(board.getOccupiedBitBoard());
+            std::cout << "-------------" << std::endl;
+
+            board.unmakeMove();
+            board.printBitboard(board.getOccupiedBitBoard());
+            std::cout << "-------------" << std::endl;
+
+            board.unmakeMove();
+            board.printBitboard(board.getOccupiedBitBoard());
+        }
 	};
 
     TEST_CLASS(MoveGeneratorTest) 
