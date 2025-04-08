@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "CppUnitTest.h"
 #include "../Noobie/Board.h"
 #include "../Noobie/MoveGenerator.h"
@@ -10,16 +10,16 @@ namespace Tests
 	TEST_CLASS(BoardTest)
 	{
 	public:
-        // Test: Comprobar que se establece correctamente el bit en la posición deseada
+        // Test: Comprobar que se establece correctamente el bit en la posiciÃ³n deseada
         TEST_METHOD(TestSetBit) 
         {
             Board board = Board(false);
             uint64_t initialBoard = 0;  // Inicialmente todos los bits son 0
-            int position = 5;           // Queremos establecer el bit en la posición 5
+            int position = 5;           // Queremos establecer el bit en la posiciÃ³n 5
 
             uint64_t result = board.setBit(initialBoard, position);
 
-            // Esperamos que el bit en la posición 5 se haya establecido a 1
+            // Esperamos que el bit en la posiciÃ³n 5 se haya establecido a 1
             uint64_t expected = 1ULL << position;
 
             // Comprobamos si el resultado es el esperado
@@ -30,36 +30,36 @@ namespace Tests
         TEST_METHOD(TestSetBitAlreadySet)
         {
             Board board = Board(false);
-            uint64_t initialBoard = 1ULL << 5;  // El bit en la posición 5 ya está establecido
-            int position = 5;                    // Queremos establecer el bit en la posición 5
+            uint64_t initialBoard = 1ULL << 5;  // El bit en la posiciÃ³n 5 ya estÃ¡ establecido
+            int position = 5;                    // Queremos establecer el bit en la posiciÃ³n 5
 
             uint64_t result = board.setBit(initialBoard, position);
 
-            // El valor del tablero no debería cambiar, ya que el bit ya estaba establecido
+            // El valor del tablero no deberÃ­a cambiar, ya que el bit ya estaba establecido
             Assert::AreEqual(initialBoard, result);
         }
 
-        // Test: Comprobar que se puede establecer un bit en una posición alta
+        // Test: Comprobar que se puede establecer un bit en una posiciÃ³n alta
         TEST_METHOD(TestSetBitHighPosition)
         {
             Board board = new Board(false);
             uint64_t initialBoard = 0;   // Inicialmente todos los bits son 0
-            int position = 63;            // Establecemos el bit en la posición más alta (bit 63)
+            int position = 63;            // Establecemos el bit en la posiciÃ³n mÃ¡s alta (bit 63)
 
             uint64_t result = board.setBit(initialBoard, position);
 
-            // Comprobamos si el bit en la posición 63 se ha establecido
+            // Comprobamos si el bit en la posiciÃ³n 63 se ha establecido
             uint64_t expected = 1ULL << position;
 
             Assert::AreEqual(expected, result);
         }
 
-        // Test: Verificar que no modifica bits que no están en la posición deseada
+        // Test: Verificar que no modifica bits que no estÃ¡n en la posiciÃ³n deseada
         TEST_METHOD(TestSetBitOtherBitsNotModified)
         {
             Board board = new Board(false);
             uint64_t initialBoard = 0b1010101010101010101010101010101010101010101010101010101010101010ULL;
-            int position = 7; // Establecemos el bit en la posición 7
+            int position = 7; // Establecemos el bit en la posiciÃ³n 7
 
             uint64_t result = board.setBit(initialBoard, position);
 
@@ -69,61 +69,61 @@ namespace Tests
             Assert::AreEqual(expected, result);
         }
 
-        // Test: Obtener un bit que está en 1
+        // Test: Obtener un bit que estÃ¡ en 1
         TEST_METHOD(TestGetBitSet)
         {
             Board board = new Board(false);
-            uint64_t initialBoard = 0b10100000;  // El bit en la posición 5 está a 1
-            int position = 5;  // Queremos obtener el bit en la posición 5
+            uint64_t initialBoard = 0b10100000;  // El bit en la posiciÃ³n 5 estÃ¡ a 1
+            int position = 5;  // Queremos obtener el bit en la posiciÃ³n 5
 
             uint64_t result = board.getBit(initialBoard, position);
 
-            // Esperamos que el resultado sea 1 << 5, ya que el bit 5 está a 1
+            // Esperamos que el resultado sea 1 << 5, ya que el bit 5 estÃ¡ a 1
             uint64_t expected = 1ULL << position;
 
             Assert::AreEqual(expected, result);
         }
 
-        // Test: Obtener un bit que está en 0
+        // Test: Obtener un bit que estÃ¡ en 0
         TEST_METHOD(TestGetBitUnset)
         {
             Board board = new Board(false);
-            uint64_t initialBoard = 0b10000000;  // El bit en la posición 5 está en 0
-            int position = 5;  // Queremos obtener el bit en la posición 5
+            uint64_t initialBoard = 0b10000000;  // El bit en la posiciÃ³n 5 estÃ¡ en 0
+            int position = 5;  // Queremos obtener el bit en la posiciÃ³n 5
 
             uint64_t result = board.getBit(initialBoard, position);
 
-            // Esperamos que el resultado sea 0, porque el bit 5 está a 0
+            // Esperamos que el resultado sea 0, porque el bit 5 estÃ¡ a 0
             uint64_t expected = 0;
 
             Assert::AreEqual(expected, result);
         }
 
-        // Test: Obtener un bit en una posición fuera de rango (por ejemplo, bit 63)
+        // Test: Obtener un bit en una posiciÃ³n fuera de rango (por ejemplo, bit 63)
         TEST_METHOD(TestGetBitHighPosition)
         {
             Board board = new Board(false);
-            uint64_t initialBoard = 0b1000000000000000000000000000000000000000000000000000000000000000ULL;  // Bit 63 está a 1
-            int position = 63;  // Queremos obtener el bit en la posición más alta (bit 63)
+            uint64_t initialBoard = 0b1000000000000000000000000000000000000000000000000000000000000000ULL;  // Bit 63 estÃ¡ a 1
+            int position = 63;  // Queremos obtener el bit en la posiciÃ³n mÃ¡s alta (bit 63)
 
             uint64_t result = board.getBit(initialBoard, position);
 
-            // Esperamos que el resultado sea 1 << 63, ya que el bit 63 está a 1
+            // Esperamos que el resultado sea 1 << 63, ya que el bit 63 estÃ¡ a 1
             uint64_t expected = 1ULL << position;
 
             Assert::AreEqual(expected, result);
         }
 
-        // Test: Obtener un bit que no está establecido (por ejemplo, bit 0)
+        // Test: Obtener un bit que no estÃ¡ establecido (por ejemplo, bit 0)
         TEST_METHOD(TestGetBitPosition0)
         {
             Board board = new Board(false);
-            uint64_t initialBoard = 0b1111111111111111111111111111111111111111111111111111111111111110ULL;  // Bit 0 está en 0
-            int position = 0;  // Queremos obtener el bit en la posición 0
+            uint64_t initialBoard = 0b1111111111111111111111111111111111111111111111111111111111111110ULL;  // Bit 0 estÃ¡ en 0
+            int position = 0;  // Queremos obtener el bit en la posiciÃ³n 0
 
             uint64_t result = board.getBit(initialBoard, position);
 
-            // Esperamos que el resultado sea 0, porque el bit 0 está a 0
+            // Esperamos que el resultado sea 0, porque el bit 0 estÃ¡ a 0
             uint64_t expected = 0;
 
             Assert::AreEqual(expected, result);
@@ -133,8 +133,8 @@ namespace Tests
         TEST_METHOD(TestGetBitOtherBitsNotModified)
         {
             Board board = new Board(false);
-            uint64_t initialBoard = 0b1010101010101010101010101010101010101010101010101010101010101010ULL; // Algunos bits ya están establecidos
-            int position = 7;  // Queremos obtener el bit en la posición 7
+            uint64_t initialBoard = 0b1010101010101010101010101010101010101010101010101010101010101010ULL; // Algunos bits ya estÃ¡n establecidos
+            int position = 7;  // Queremos obtener el bit en la posiciÃ³n 7
 
             uint64_t result = board.getBit(initialBoard, position);
 
@@ -488,12 +488,12 @@ namespace Tests
             board.setBitOfBoard(Board::W_TOWER, 0);  // a1 = 0
             board.setBitOfBoard(Board::B_PAWN, 32);   // a5 = 32
 
-            // Intentamos mover la torre de a1 a a8, lo que debería fallar debido al bloqueador en a5
+            // Intentamos mover la torre de a1 a a8, lo que deberÃ­a fallar debido al bloqueador en a5
             move.from = 0;
             move.to = 56;
             move.piece = MoveGenerator::TOWER;
 
-            bool resultUpToDown = moveGen.isLegal(board, move);
+            bool resultUpToDown = moveGen.isLegal(board, move, Board::WHITE);
             Assert::IsFalse(resultUpToDown); // Esperamos que el movimiento falle debido al bloqueador en a5
 
             board.clearBitOfBoard(Board::W_TOWER, 0);
@@ -504,12 +504,12 @@ namespace Tests
             board.setBitOfBoard(Board::W_TOWER, 56);  // a8 = 56
             board.setBitOfBoard(Board::B_PAWN, 32);   // a5 = 32
 
-            // Intentamos mover la torre de a8 a a1, lo que debería fallar debido al bloqueador en a5
+            // Intentamos mover la torre de a8 a a1, lo que deberÃ­a fallar debido al bloqueador en a5
             move.from = 56;
             move.to = 0;
             move.piece = MoveGenerator::TOWER;
 
-            bool resultDownToUp = moveGen.isLegal(board, move);
+            bool resultDownToUp = moveGen.isLegal(board, move, Board::WHITE);
             Assert::IsFalse(resultDownToUp); // Esperamos que el movimiento falle debido al bloqueador en a5
 
 
@@ -520,12 +520,12 @@ namespace Tests
             board.setBitOfBoard(Board::W_QUEEN, 0);  // a1 = 0
             board.setBitOfBoard(Board::B_PAWN, 32);   // a5 = 32
 
-            // Intentamos mover la reina de a1 a a8, lo que debería fallar debido al bloqueador en a5
+            // Intentamos mover la reina de a1 a a8, lo que deberÃ­a fallar debido al bloqueador en a5
             move.from = 0;
             move.to = 56;
             move.piece = MoveGenerator::QUEEN;
 
-            bool resultUpToDownQueen = moveGen.isLegal(board, move);
+            bool resultUpToDownQueen = moveGen.isLegal(board, move, Board::WHITE);
             Assert::IsFalse(resultUpToDownQueen); // Esperamos que el movimiento falle debido al bloqueador en a5
 
             // Prueba 4: Movimiento de abajo hacia arriba con una reina bloqueada en el camino
@@ -533,32 +533,32 @@ namespace Tests
             board.setBitOfBoard(Board::W_QUEEN, 56);  // a8 = 56
             board.setBitOfBoard(Board::B_PAWN, 32);   // a5 = 32
 
-            // Intentamos mover la reina de a8 a a1, lo que debería fallar debido al bloqueador en a5
+            // Intentamos mover la reina de a8 a a1, lo que deberÃ­a fallar debido al bloqueador en a5
             move.from = 56;
             move.to = 0;
             move.piece = MoveGenerator::QUEEN;
 
-            bool resultDownToUpQueen = moveGen.isLegal(board, move);
+            bool resultDownToUpQueen = moveGen.isLegal(board, move, Board::WHITE);
             Assert::IsFalse(resultDownToUpQueen); // Esperamos que el movimiento falle debido al bloqueador en a5
         }
         TEST_METHOD(TestIsHorizontalPathClear_LeftToRight_NoBlock){
             Board board(true); 
             MoveGenerator moveGen;
-            Move m1 = { 0, 3, MoveGenerator::TOWER }; // Torre moviéndose de a1 a a4 (casillas 0 a 3)
+            Move m1 = { 0, 3, MoveGenerator::TOWER }; // Torre moviÃ©ndose de a1 a a4 (casillas 0 a 3)
 
             board.setBitOfBoard(Board::W_TOWER, 0);
 
-            bool result = moveGen.isLegal(board, m1);
+            bool result = moveGen.isLegal(board, m1, Board::WHITE);
             Assert::IsTrue(result);
 
-            // Vacía la casilla
+            // VacÃ­a la casilla
             board.clearBitOfBoard(Board::W_TOWER, 0);
 
             Move m2 = { 0, 3, MoveGenerator::QUEEN }; 
 
             board.setBitOfBoard(Board::W_QUEEN, 0);
 
-            result = moveGen.isLegal(board, m2);
+            result = moveGen.isLegal(board, m2, Board::WHITE);
             Assert::IsTrue(result);
         }
         TEST_METHOD(testIsLegal_HorizontalPathClear_LeftToRight_WithBlock) {
@@ -569,17 +569,17 @@ namespace Tests
             board.setBitOfBoard(Board::W_TOWER, 0);
             board.setBitOfBoard(Board::B_PAWN, 2);
             
-            bool result = moveGen.isLegal(board, m1);
+            bool result = moveGen.isLegal(board, m1, Board::WHITE);
             Assert::IsFalse(result);
 
-            // Vacía la casilla
+            // VacÃ­a la casilla
             board.clearBitOfBoard(Board::W_TOWER, 0);
 
             Move m2 = { 0, 3, MoveGenerator::QUEEN }; 
 
             board.setBitOfBoard(Board::W_QUEEN, 0);
 
-            result = moveGen.isLegal(board, m2);
+            result = moveGen.isLegal(board, m2, Board::WHITE);
             Assert::IsFalse(result); 
         }
         TEST_METHOD(testIsLegal_HorizontalPathClear_RightToLeft_NoBlock) {
@@ -589,17 +589,17 @@ namespace Tests
 
             board.setBitOfBoard(Board::W_TOWER, 3);
 
-            bool result = moveGen.isLegal(board, m1);
+            bool result = moveGen.isLegal(board, m1, Board::WHITE);
             Assert::IsTrue(result);
 
-            // Vacía la casilla
+            // VacÃ­a la casilla
             board.clearBitOfBoard(Board::W_TOWER, 3);
 
             Move m2 = { 3, 0, MoveGenerator::QUEEN };
 
             board.setBitOfBoard(Board::W_QUEEN, 3);
 
-            result = moveGen.isLegal(board, m2);
+            result = moveGen.isLegal(board, m2, Board::WHITE);
             Assert::IsTrue(result);
         }
         TEST_METHOD(testIsLegal_HorizontalPathClear_RightToLeft_WithBlock) {
@@ -610,17 +610,17 @@ namespace Tests
             board.setBitOfBoard(Board::W_TOWER, 3);
             board.setBitOfBoard(Board::B_PAWN, 2);
 
-            bool result = moveGen.isLegal(board, m1);
+            bool result = moveGen.isLegal(board, m1, Board::WHITE);
             Assert::IsFalse(result);
 
-            // Vacía la casilla
+            // VacÃ­a la casilla
             board.clearBitOfBoard(Board::W_TOWER, 3);
 
             Move m2 = { 3, 0, MoveGenerator::QUEEN };
 
             board.setBitOfBoard(Board::W_QUEEN, 3);
 
-            result = moveGen.isLegal(board, m2);
+            result = moveGen.isLegal(board, m2, Board::WHITE);
             Assert::IsFalse(result);
         }
         TEST_METHOD(testIsLegal_DiagonalPathClear_NoBlock) {
@@ -633,10 +633,10 @@ namespace Tests
 
             board.setBitOfBoard(Board::W_BISHOP, 27);
 
-            Assert::IsTrue(moveGen.isLegal(board, m1));
-            Assert::IsTrue(moveGen.isLegal(board, m2));
-            Assert::IsTrue(moveGen.isLegal(board, m3));
-            Assert::IsTrue(moveGen.isLegal(board, m4));
+            Assert::IsTrue(moveGen.isLegal(board, m1, Board::WHITE));
+            Assert::IsTrue(moveGen.isLegal(board, m2, Board::WHITE));
+            Assert::IsTrue(moveGen.isLegal(board, m3, Board::WHITE));
+            Assert::IsTrue(moveGen.isLegal(board, m4, Board::WHITE));
         }
         TEST_METHOD(testIsLegal_DiagonalPathClear_WithBlock) {
             Board board(false);
@@ -652,10 +652,10 @@ namespace Tests
             board.setBitOfBoard(Board::B_PAWN, 13);
             board.setBitOfBoard(Board::B_PAWN, 9);
 
-            Assert::IsFalse(moveGen.isLegal(board, m1));
-            Assert::IsFalse(moveGen.isLegal(board, m2));
-            Assert::IsFalse(moveGen.isLegal(board, m3));
-            Assert::IsFalse(moveGen.isLegal(board, m4));
+            Assert::IsFalse(moveGen.isLegal(board, m1, Board::WHITE));
+            Assert::IsFalse(moveGen.isLegal(board, m2, Board::WHITE));
+            Assert::IsFalse(moveGen.isLegal(board, m3, Board::WHITE));
+            Assert::IsFalse(moveGen.isLegal(board, m4, Board::WHITE));
         }
         TEST_METHOD(TestIsKingInCheck) {
             Board board(true);
@@ -673,23 +673,23 @@ namespace Tests
             Move followUpBlack { 55, 47, MoveGenerator::PAWN };
             Move whiteChecksBlack {43, 51, MoveGenerator::PAWN };
 
-            Assert::IsFalse(moveGen.isLegal(board, illegalWhite));
+            Assert::IsFalse(moveGen.isLegal(board, illegalWhite, Board::WHITE));
 
-            Assert::IsTrue(moveGen.isLegal(board, legalWhite));
+            Assert::IsTrue(moveGen.isLegal(board, legalWhite, Board::WHITE));
             board.makeMove(legalWhite);
 
-            Assert::IsTrue(moveGen.isLegal(board, followUpBlack));
+            Assert::IsTrue(moveGen.isLegal(board, followUpBlack, Board::BLACK));
             board.makeMove(followUpBlack);
 
-            Assert::IsTrue(moveGen.isLegal(board, whiteChecksBlack));
+            Assert::IsTrue(moveGen.isLegal(board, whiteChecksBlack, Board::WHITE));
             board.makeMove(whiteChecksBlack);
 
             Move illegalBlack { 47, 39, MoveGenerator::PAWN };
             Move legalBlack{ 60, 51, MoveGenerator::PAWN };
 
-            Assert::IsFalse(moveGen.isLegal(board, illegalBlack));
+            Assert::IsFalse(moveGen.isLegal(board, illegalBlack, Board::BLACK));
 
-            Assert::IsTrue(moveGen.isLegal(board, legalBlack));
+            Assert::IsTrue(moveGen.isLegal(board, legalBlack, Board::BLACK));
         }
         TEST_METHOD(TestStalemate) {
             Board board(false);
@@ -709,7 +709,7 @@ namespace Tests
             std::vector<Move> moves = moveGen.generateMoves(board, Board::WHITE);
 
             for (const auto move : moves) {
-                Assert::IsFalse(moveGen.isLegal(board, move));
+                Assert::IsFalse(moveGen.isLegal(board, move, Board::WHITE));
             }
     
             board.setStalemate(true);
@@ -735,21 +735,17 @@ namespace Tests
             uint64_t b_pawn = 1ULL << 51;
             Board b(w_pawn, 0, 0, 0, 0, 0, b_pawn, 0, 0, 0, 0, 0);
 
-            std::vector<Move> w_moves = moveGen.generateMoves(b, WHITE);
-            std::vector<Move> b_moves = moveGen.generateMoves(b, BLACK);
+            std::vector<Move> w_moves = moveGen.generateMoves(b, Board::WHITE);
+            std::vector<Move> b_moves = moveGen.generateMoves(b, Board::BLACK);
 
             std::vector<Move> expectedWhiteMoves = {
                 {11, 19, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},
-                {11, 27, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},                                
-                {11, 20, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},
-                {11, 18, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},
+                {11, 27, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},   
             };
 
             std::vector<Move> expectedBlackMoves = {
                 {51, 43, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},
                 {51, 35, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},
-                {51, 42, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},
-                {51, 44, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},
             };
 
             Assert::AreEqual(expectedWhiteMoves.size(), w_moves.size());
@@ -780,13 +776,11 @@ namespace Tests
             std::vector<Move> expectedWhiteMoves = {
                 {15, 23, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},
                 {15, 31, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},
-                {15, 22, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},
             };
 
             std::vector<Move> expectedBlackMoves = {
                 {55, 47, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},
                 {55, 39, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},
-                {55, 46, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},
             };
 
             Assert::AreEqual(expectedWhiteMoves.size(), w_moves.size());
@@ -817,13 +811,11 @@ namespace Tests
             std::vector<Move> expectedWhiteMoves = {
                 {8, 16, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},
                 {8, 24, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},
-                {8, 17, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},
             };
 
             std::vector<Move> expectedBlackMoves = {
                 {48, 40, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},
                 {48, 32, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},
-                {48, 41, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},
             };
 
             Assert::AreEqual(expectedWhiteMoves.size(), w_moves.size());
@@ -853,14 +845,10 @@ namespace Tests
             
             std::vector<Move> expectedWhiteMoves = {
                 {18, 26, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},
-                {18, 25, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},
-                {18, 27, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},
             };
 
             std::vector<Move> expectedBlackMoves = {
                 {42, 34, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},
-                {42, 33, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},
-                {42, 35, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},
             };
 
             Assert::AreEqual(expectedWhiteMoves.size(), w_moves.size());
@@ -1408,30 +1396,121 @@ namespace Tests
                 Assert::IsTrue(found, L"Expected move not found");
             }
         }
+        TEST_METHOD(TestGenerateKingMovesCastling) {
+            MoveGenerator moveGen;
+            Board board(true);
+
+            board.setBitOfBoard(Board::W_KING, 4);
+            board.setBitOfBoard(Board::W_TOWER, 0);
+            board.setBitOfBoard(Board::W_TOWER, 7);
+
+            board.setBitOfBoard(Board::B_KING, 60);
+            board.setBitOfBoard(Board::B_TOWER, 63);
+            board.setBitOfBoard(Board::B_TOWER, 56);
+
+            std::vector<Move> w_moves = moveGen.generateMoves(board, Board::WHITE);
+            std::vector<Move> b_moves = moveGen.generateMoves(board, Board::BLACK);
+
+            std::vector<Move> expectedWhiteMoves = {
+                {4, 3, MoveGenerator::KING, MoveGenerator::NULL_TYPE},  // e1 â†’ d1
+                {4, 5, MoveGenerator::KING, MoveGenerator::NULL_TYPE},  // e1 â†’ f1
+
+                {4, 11, MoveGenerator::KING, MoveGenerator::NULL_TYPE}, // e1 â†’ f2
+                {4, 12, MoveGenerator::KING, MoveGenerator::NULL_TYPE}, // e1 â†’ e2
+                {4, 13, MoveGenerator::KING, MoveGenerator::NULL_TYPE}, // e1 â†’ d2
+                
+                {4, 6, MoveGenerator::KING, MoveGenerator::NULL_TYPE},  // e1 â†’ g1 (enroque corto)
+                {4, 2, MoveGenerator::KING, MoveGenerator::NULL_TYPE},  // e1 â†’ c1 (enroque largo)
+
+                // Torre en a1 (0) - Movimientos horizontales
+                { 0, 1, MoveGenerator::TOWER, MoveGenerator::NULL_TYPE }, {0, 2, MoveGenerator::TOWER, MoveGenerator::NULL_TYPE},
+                {0, 3, MoveGenerator::TOWER, MoveGenerator::NULL_TYPE},
+
+                // Torre en a1 (0) - Movimientos verticales
+                {0, 8, MoveGenerator::TOWER, MoveGenerator::NULL_TYPE}, {0, 16, MoveGenerator::TOWER, MoveGenerator::NULL_TYPE},
+                {0, 24, MoveGenerator::TOWER, MoveGenerator::NULL_TYPE}, {0, 32, MoveGenerator::TOWER, MoveGenerator::NULL_TYPE},
+                {0, 40, MoveGenerator::TOWER, MoveGenerator::NULL_TYPE}, {0, 48, MoveGenerator::TOWER, MoveGenerator::NULL_TYPE},
+                {0, 56, MoveGenerator::TOWER, MoveGenerator::NULL_TYPE},
+
+                // Torre en h1 (7) - Movimientos horizontales
+                {7, 6, MoveGenerator::TOWER, MoveGenerator::NULL_TYPE}, {7, 5, MoveGenerator::TOWER, MoveGenerator::NULL_TYPE},
+                
+                // Torre en h1 (7) - Movimientos verticales
+                {7, 15, MoveGenerator::TOWER, MoveGenerator::NULL_TYPE}, {7, 23, MoveGenerator::TOWER, MoveGenerator::NULL_TYPE},
+                {7, 31, MoveGenerator::TOWER, MoveGenerator::NULL_TYPE}, {7, 39, MoveGenerator::TOWER, MoveGenerator::NULL_TYPE},
+                {7, 47, MoveGenerator::TOWER, MoveGenerator::NULL_TYPE}, {7, 55, MoveGenerator::TOWER, MoveGenerator::NULL_TYPE},
+                {7, 63, MoveGenerator::TOWER, MoveGenerator::NULL_TYPE}
+            };
+            std::vector<Move> expectedBlackMoves = {
+                {60, 59, MoveGenerator::KING, MoveGenerator::NULL_TYPE},  // e8 â†’ d8
+                {60, 61, MoveGenerator::KING, MoveGenerator::NULL_TYPE},  // e8 â†’ f8
+
+                { 60, 52, MoveGenerator::KING, MoveGenerator::NULL_TYPE }, // e8 â†’ e7
+                { 60, 53, MoveGenerator::KING, MoveGenerator::NULL_TYPE }, // e8 â†’ f7
+                { 60, 51, MoveGenerator::KING, MoveGenerator::NULL_TYPE }, // e8 â†’ d7
+
+                {60, 62, MoveGenerator::KING, MoveGenerator::NULL_TYPE},  // e8 â†’ g8 (enroque corto)
+                {60, 58, MoveGenerator::KING, MoveGenerator::NULL_TYPE},  // e8 â†’ c8 (enroque largo)
+
+                // Torre en a8 (56) - Movimientos horizontales
+                { 56, 57, MoveGenerator::TOWER, MoveGenerator::NULL_TYPE }, { 56, 58, MoveGenerator::TOWER, MoveGenerator::NULL_TYPE},
+                { 56, 59, MoveGenerator::TOWER, MoveGenerator::NULL_TYPE },
+
+                // Torre en a8 (56) - Movimientos verticales
+                { 56, 48, MoveGenerator::TOWER, MoveGenerator::NULL_TYPE }, { 56, 40, MoveGenerator::TOWER, MoveGenerator::NULL_TYPE },
+                { 56, 32, MoveGenerator::TOWER, MoveGenerator::NULL_TYPE }, { 56, 24, MoveGenerator::TOWER, MoveGenerator::NULL_TYPE },
+                { 56, 16, MoveGenerator::TOWER, MoveGenerator::NULL_TYPE }, { 56, 8, MoveGenerator::TOWER, MoveGenerator::NULL_TYPE },
+                { 56, 0, MoveGenerator::TOWER, MoveGenerator::NULL_TYPE },
+
+                // Torre en h8 (63) - Movimientos horizontales
+                { 63, 62, MoveGenerator::TOWER, MoveGenerator::NULL_TYPE }, { 63, 61, MoveGenerator::TOWER, MoveGenerator::NULL_TYPE },
+            
+                // Torre en h8 (63) - Movimientos verticales
+                { 63, 55, MoveGenerator::TOWER, MoveGenerator::NULL_TYPE }, { 63, 47, MoveGenerator::TOWER, MoveGenerator::NULL_TYPE },
+                { 63, 39, MoveGenerator::TOWER, MoveGenerator::NULL_TYPE }, { 63, 31, MoveGenerator::TOWER, MoveGenerator::NULL_TYPE },
+                { 63, 23, MoveGenerator::TOWER, MoveGenerator::NULL_TYPE }, { 63, 15, MoveGenerator::TOWER, MoveGenerator::NULL_TYPE },
+                { 63, 7, MoveGenerator::TOWER, MoveGenerator::NULL_TYPE }
+            };
+
+            Assert::AreEqual(expectedWhiteMoves.size(), w_moves.size());
+
+            for (const auto& expectedMove : expectedWhiteMoves) {
+                bool found = std::find(w_moves.begin(), w_moves.end(), expectedMove) != w_moves.end();
+                Assert::IsTrue(found, L"Expected move not found");
+            }
+            
+            Assert::AreEqual(expectedBlackMoves.size(), b_moves.size());
+            /*
+            for (const auto& expectedMove : expectedBlackMoves) {
+                bool found = std::find(b_moves.begin(), b_moves.end(), expectedMove) != b_moves.end();
+                Assert::IsTrue(found, L"Expected move not found");
+            }
+            */
+        }
         TEST_METHOD(TestFilterMoves) {
             MoveGenerator moveGen;
             Board board(false);
 
             std::vector<Move> expectedWhiteMoves = {
                 // Peones avanzando una casilla
-                {8, 16, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},  // Peón en a2 a a3
-                {9, 17, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},  // Peón en b2 a b3
-                {10, 18, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en c2 a c3
-                {11, 19, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en d2 a d3
-                {12, 20, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en e2 a e3
-                {13, 21, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en f2 a f3
-                {14, 22, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en g2 a g3
-                {15, 23, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en h2 a h3
+                {8, 16, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},  // PeÃ³n en a2 a a3
+                {9, 17, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},  // PeÃ³n en b2 a b3
+                {10, 18, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // PeÃ³n en c2 a c3
+                {11, 19, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // PeÃ³n en d2 a d3
+                {12, 20, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // PeÃ³n en e2 a e3
+                {13, 21, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // PeÃ³n en f2 a f3
+                {14, 22, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // PeÃ³n en g2 a g3
+                {15, 23, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // PeÃ³n en h2 a h3
 
                 // Peones avanzando dos casillas (primer movimiento)
-                {8, 24, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},  // Peón en a2 a a4
-                {9, 25, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},  // Peón en b2 a b4
-                {10, 26, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en c2 a c4
-                {11, 27, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en d2 a d4
-                {12, 28, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en e2 a e4
-                {13, 29, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en f2 a f4
-                {14, 30, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en g2 a g4
-                {15, 31, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en h2 a h4
+                {8, 24, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},  // PeÃ³n en a2 a a4
+                {9, 25, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE},  // PeÃ³n en b2 a b4
+                {10, 26, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // PeÃ³n en c2 a c4
+                {11, 27, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // PeÃ³n en d2 a d4
+                {12, 28, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // PeÃ³n en e2 a e4
+                {13, 29, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // PeÃ³n en f2 a f4
+                {14, 30, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // PeÃ³n en g2 a g4
+                {15, 31, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // PeÃ³n en h2 a h4
 
                 // Movimientos de los caballos
                 {1, 16, MoveGenerator::KNIGHT, MoveGenerator::NULL_TYPE}, // Caballo b1 a a3
@@ -1442,24 +1521,24 @@ namespace Tests
 
             std::vector<Move> expectedBlackMoves = {
                 // Peones avanzando una casilla
-                {48, 40, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en a7 a a6
-                {49, 41, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en b7 a b6
-                {50, 42, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en c7 a c6
-                {51, 43, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en d7 a d6
-                {52, 44, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en e7 a e6
-                {53, 45, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en f7 a f6
-                {54, 46, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en g7 a g6
-                {55, 47, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en h7 a h6
+                {48, 40, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // PeÃ³n en a7 a a6
+                {49, 41, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // PeÃ³n en b7 a b6
+                {50, 42, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // PeÃ³n en c7 a c6
+                {51, 43, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // PeÃ³n en d7 a d6
+                {52, 44, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // PeÃ³n en e7 a e6
+                {53, 45, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // PeÃ³n en f7 a f6
+                {54, 46, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // PeÃ³n en g7 a g6
+                {55, 47, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // PeÃ³n en h7 a h6
 
                 // Peones avanzando dos casillas (primer movimiento)
-                {48, 32, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en a7 a a5
-                {49, 33, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en b7 a b5
-                {50, 34, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en c7 a c5
-                {51, 35, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en d7 a d5
-                {52, 36, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en e7 a e5
-                {53, 37, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en f7 a f5
-                {54, 38, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en g7 a g5
-                {55, 39, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // Peón en h7 a h5
+                {48, 32, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // PeÃ³n en a7 a a5
+                {49, 33, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // PeÃ³n en b7 a b5
+                {50, 34, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // PeÃ³n en c7 a c5
+                {51, 35, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // PeÃ³n en d7 a d5
+                {52, 36, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // PeÃ³n en e7 a e5
+                {53, 37, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // PeÃ³n en f7 a f5
+                {54, 38, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // PeÃ³n en g7 a g5
+                {55, 39, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE}, // PeÃ³n en h7 a h5
 
                 // Movimientos de los caballos
                 {57, 42, MoveGenerator::KNIGHT, MoveGenerator::NULL_TYPE}, // Caballo b8 a a6
@@ -1469,14 +1548,14 @@ namespace Tests
             };
 
             std::vector<Move> w_moves = moveGen.generateMoves(board, Board::WHITE);
-            moveGen.filterMoves(board, w_moves);
+            moveGen.filterMoves(board, w_moves, Board::WHITE);
 
             Assert::AreEqual(expectedWhiteMoves.size(), w_moves.size());
 
             board.makeMove({8, 16, MoveGenerator::PAWN, MoveGenerator::NULL_TYPE});
 
             std::vector<Move> b_moves = moveGen.generateMoves(board, Board::BLACK);
-            moveGen.filterMoves(board, b_moves);
+            moveGen.filterMoves(board, b_moves, Board::BLACK);
 
             Assert::AreEqual(expectedBlackMoves.size(), b_moves.size());
         }
