@@ -100,7 +100,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <AdditionalLibraryDirectories>$(VCInstallDir)UnitTest\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>C:\Users\pc\source\repos\noobie\Noobie\x64\Debug\Board.obj;C:\Users\pc\source\repos\noobie\Noobie\x64\Debug\MoveGenerator.obj;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>C:\Users\pc\source\repos\noobie\Noobie\x64\Debug\Board.obj;C:\Users\pc\source\repos\noobie\Noobie\x64\Debug\MoveGenerator.obj;C:\Users\pc\source\repos\noobie\Noobie\x64\Debug\Evaluator.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
