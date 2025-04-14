@@ -2,6 +2,7 @@
 #include "CppUnitTest.h"
 #include "../Noobie/Board.h"
 #include "../Noobie/MoveGenerator.h"
+#include "../noobie/Evaluator.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -1579,6 +1580,57 @@ namespace Tests
             moveGen.filterMoves(board, b_moves, Board::BLACK);
 
             Assert::AreEqual(expectedBlackMoves.size(), b_moves.size());
+        }
+    };
+
+    TEST_CLASS(EvaluatorTest) {
+        TEST_METHOD(TestEvaluate) {
+            Board board(false);
+            Assert::IsTrue(0 == Evaluator::evaluate(board));
+        }
+        TEST_METHOD(TestEvaluate_2) {
+            Board board(true);
+
+            board.setBitOfBoard(Board::W_PAWN, 8);
+            board.setBitOfBoard(Board::W_PAWN, 9);
+            board.setBitOfBoard(Board::W_PAWN, 10);
+            board.setBitOfBoard(Board::W_PAWN, 11);
+            board.setBitOfBoard(Board::W_PAWN, 12);
+            board.setBitOfBoard(Board::W_PAWN, 13);
+            board.setBitOfBoard(Board::W_PAWN, 14);
+            board.setBitOfBoard(Board::W_PAWN, 15);
+            board.setBitOfBoard(Board::W_BISHOP, 2);
+            board.setBitOfBoard(Board::W_BISHOP, 5);
+            board.setBitOfBoard(Board::W_TOWER, 0);
+            board.setBitOfBoard(Board::W_TOWER, 7);
+            board.setBitOfBoard(Board::W_KNIGHT, 1);
+            board.setBitOfBoard(Board::W_KNIGHT, 6);
+            board.setBitOfBoard(Board::W_QUEEN, 3);
+            board.setBitOfBoard(Board::W_KING, 4);
+
+            Assert::IsTrue(4000 == Evaluator::evaluate(board));
+        }
+        TEST_METHOD(TestEvaluate_3) {
+            Board board(true);
+
+            board.setBitOfBoard(Board::B_PAWN, 8);
+            board.setBitOfBoard(Board::B_PAWN, 9);
+            board.setBitOfBoard(Board::B_PAWN, 10);
+            board.setBitOfBoard(Board::B_PAWN, 11);
+            board.setBitOfBoard(Board::B_PAWN, 12);
+            board.setBitOfBoard(Board::B_PAWN, 13);
+            board.setBitOfBoard(Board::B_PAWN, 14);
+            board.setBitOfBoard(Board::B_PAWN, 15);
+            board.setBitOfBoard(Board::B_BISHOP, 2);
+            board.setBitOfBoard(Board::B_BISHOP, 5);
+            board.setBitOfBoard(Board::B_TOWER, 0);
+            board.setBitOfBoard(Board::B_TOWER, 7);
+            board.setBitOfBoard(Board::B_KNIGHT, 1);
+            board.setBitOfBoard(Board::B_KNIGHT, 6);
+            board.setBitOfBoard(Board::B_QUEEN, 3);
+            board.setBitOfBoard(Board::B_KING, 4);
+
+            Assert::IsTrue(-4000 == Evaluator::evaluate(board));
         }
     };
 }
