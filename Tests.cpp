@@ -1632,5 +1632,14 @@ namespace Tests
 
             Assert::IsTrue(-4000 == Evaluator::evaluate(board));
         }
+        TEST_METHOD(TestSearch) {
+            Board board(false);
+
+            int score = Evaluator::negamax(board, 4, -100000, 100000);
+
+            std::cout << score << std::endl;
+            
+            Move best = Evaluator::getBestMove();
+        }
     };
 }
